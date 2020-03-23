@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchTheaters from './SearchTheaters'
 
 const Home = (props) => {
     return(

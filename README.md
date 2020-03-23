@@ -2,13 +2,13 @@
 
 # run the following: 
 
-SERVER:
-npm init -y
+## SERVER:
+### npm init -y
 
-npm i express mongoose cors
+### npm i express mongoose cors
 
-CLIENT:
+## CLIENT:
 
-npm i axios @reach/router
-npm install --save react-google-maps
-npm install --save react-places-autocomplete
+### npm i axios @reach/router
+### npm install --save react-google-maps
+### npm install --save react-places-autocomplete

@@ -1,40 +1,44 @@
 
 #bgContainer {
     background-color: #1f1f1f;
-    height: 450px;
+    /* height: 450px; */
     padding: 0;
     overflow: hidden;
 }
 
 #background {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     opacity: 0.2;
-    position: relative;
+    position: absolute;
 }
 
 #infoContainer {
-    height: 100%;
-    padding: 0;
-    position: absolute;
+    /* height: 100%; */
+    /* padding: 0; */
+    /* position: relative;
     top: 0;
-    left: 15px;
+    left: 15%; */
 }
 
 #poster {
-    height: 400px;
-    position: absolute;
+    /* height: auto; */
+    /* position: absolute;
     top: 0px;
-    left: 20px;
+    left: 0px; */
     z-index: 7
 }
 
 #infoBox {
     height: 400px;
-    position: absolute;
-    top: 0px;
-    left: 22rem;
+    /* top: 0px;
+    left: 30%; */
     padding: 0;
     z-index: 7;
-    color: #fff
+}
+
+.iconStyle {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
 }

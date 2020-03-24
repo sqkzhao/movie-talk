@@ -1,0 +1,40 @@
+
+#bgContainer {
+    background-color: #1f1f1f;
+    height: 450px;
+    padding: 0;
+    overflow: hidden;
+}
+
+#background {
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    position: relative;
+}
+
+#infoContainer {
+    height: 100%;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 15px;
+}
+
+#poster {
+    height: 400px;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    z-index: 7
+}
+
+#infoBox {
+    height: 400px;
+    position: absolute;
+    top: 0px;
+    left: 22rem;
+    padding: 0;
+    z-index: 7;
+    color: #fff
+}

@@ -24,7 +24,6 @@ const MovieDetails = (props) => {
                 const min = res.data.runtime%60
                 setRuntime(`${hr}h ${min}min`)
                 setYear(res.data.release_date.slice(0, 4))
-                console.log(res.data)
             })
             .catch(err => console.log(err))
         // HASHTAG/KEYWORDS

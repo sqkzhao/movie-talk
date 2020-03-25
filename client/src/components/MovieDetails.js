@@ -68,20 +68,23 @@ const MovieDetails = (props) => {
                                 </p>
                                 {/* BUTTONS */}
                                 <div className="my-5">
+                                    {/* FAVORITE */}
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}><div className={styles.tooltip}>Add to Favorites</div></Tooltip>
                                     }>
                                         <Link to='/'><i className="far fa-grin-hearts" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
+                                    {/* WATCHLIST */}
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}><div className={styles.tooltip}>Add to Watchlist</div></Tooltip>
                                     }>
                                         <Link to='/'><i className="far fa-list-alt" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
+                                    {/* THEATER */}
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}><div className={styles.tooltip}>Find Nearby Theater</div></Tooltip>
                                     }>
-                                        <Link to='/'><i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
+                                        <Link to='/theaters'><i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
                                 </div>
                                 {/* HASHTAG/KEYWORDS */}

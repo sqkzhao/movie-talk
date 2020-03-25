@@ -1,40 +1,46 @@
 
 #bgContainer {
     background-color: #1f1f1f;
-    height: 450px;
     padding: 0;
     overflow: hidden;
 }
 
 #background {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     opacity: 0.2;
-    position: relative;
-}
-
-#infoContainer {
-    height: 100%;
-    padding: 0;
     position: absolute;
-    top: 0;
-    left: 15px;
 }
 
 #poster {
-    height: 400px;
-    position: absolute;
-    top: 0px;
-    left: 20px;
     z-index: 7
 }
 
 #infoBox {
     height: 400px;
-    position: absolute;
-    top: 0px;
-    left: 22rem;
     padding: 0;
     z-index: 7;
-    color: #fff
+}
+
+#iconStyle {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.cast {
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    font-size: 10px;
+}
+
+.tooltip {
+    padding: 5px;
+    margin-left: 0px;
+    font-weight: bold;
 }

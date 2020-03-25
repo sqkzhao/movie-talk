@@ -35,7 +35,7 @@ const MovieDetails = (props) => {
     }, [])
 
     return (
-        <div>
+        <div className="bg-warning text-white">
             <div className="col" id={styles.bgContainer}>
                 {/* BACKGROUND */}
                 <img src={"http://image.tmdb.org/t/p/w342/"+ movie.backdrop_path} id={styles.background} />
@@ -70,17 +70,17 @@ const MovieDetails = (props) => {
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}><div className={styles.tooltip}>Add to Favorites</div></Tooltip>
                                     }>
-                                        <Link to='/'><i className="far fa-grin-hearts" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
+                                        <Link to='/'><i className="far fa-grin-hearts" data-toggle="tooltip" data-placement="bottom" title="Favorite" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}><div className={styles.tooltip}>Add to Watchlist</div></Tooltip>
                                     }>
-                                        <Link to='/'><i className="far fa-list-alt" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
+                                        <Link to='/'><i className="far fa-list-alt" data-toggle="tooltip" data-placement="bottom" title="watchlist" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}><div className={styles.tooltip}>Find Nearby Theater</div></Tooltip>
                                     }>
-                                        <Link to='/'><i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
+                                        <Link to='/'><i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Map" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
                                 </div>
                                 {/* HASHTAG/KEYWORDS */}
@@ -101,10 +101,10 @@ const MovieDetails = (props) => {
                 <AppBar position="static">
                     <Tabs variant="fullWidth" className="container-md">
                         <Tab label="Overview" onClick={(e) => navigate('/movies/'+id+'/overview')} />
+                        <Tab label="Nearby Theaters" onClick={(e) => navigate('/movies/'+id+'/theaters')} />
                         <Tab label="Videos" onClick={(e) => navigate('/movies/'+id+'/videos')} />
-                        <Tab label="Movie Info" onClick={(e) => navigate('/movies/'+id+'/info')} />
-                        <Tab label="Reviews" />
-                        <Tab label="Comments" />
+                        <Tab label="Details" onClick={(e) => navigate('/movies/'+id+'/info')} />
+                        <Tab label="Reviews & Comments" />
                     </Tabs>
                 </AppBar>
             </div>

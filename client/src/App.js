@@ -9,7 +9,7 @@ import MovieDetailsInfo from './components/MovieDetailsInfo';
 
 function App() {
   return (
-    <div className="bg-warning text-white">
+    <div>
       <Router>
         <Home path='/' />
         <SearchTheaters path='/theaters' />

@@ -29,22 +29,22 @@ const Home = (props) => {
 
     return(
         <div>
-
-                <div style={{width:'300px', margin:'0 auto', textAlign:'center'}}>
-                <h1>Upcoming Movies</h1>
+                {/* Poster Display for upcoming movies */}
+                <div style={{width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
+                <h1>Upcoming</h1>
                     <Carousel>
                         {upcoming.map((item,i) =>(
                             <Carousel.Item key={i}>
-                                <img
-                                className="d-block w-100"
-                                src={"http://image.tmdb.org/t/p/w780" + item.poster_path}
-                                alt=""/>
+                                 <Link to='/movies/:id'>
+                                    <img
+                                    className="d-block w-100"
+                                    src={"http://image.tmdb.org/t/p/w780" + item.poster_path}
+                                    alt=""/>
+                                </Link>
                                 <Carousel.Caption>
-                                    <Link to='/movies/:id'>
-                                        <h4 style={{color: 'rgba(255, 255, 255, 0.6)', fontFamily:'Impact, Charcoal, sans-serif'}}>
+                                        <h6 style={{color: 'rgba(255, 255, 255, 0.6)', fontFamily:'Impact, Charcoal, sans-serif'}}>
                                             {item.title}
-                                        </h4>  
-                                    </Link>  
+                                        </h6>               
                                 </Carousel.Caption>
                             </Carousel.Item>
                         ))}
@@ -52,21 +52,21 @@ const Home = (props) => {
                 </div>
 
 
-                <div style={{ width:'300px', margin:'0 auto', textAlign:'center'}}>
-                    <h1>Now Playing Movies</h1>
+                <div style={{ width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
+                    <h1>Now Playing</h1>
                     <Carousel>
                         {nowPlaying.map((movie,i) =>(
                             <Carousel.Item key={i}>
-                                <img
-                                className="d-block w-100"
-                                src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
-                                alt=""/>
+                                <Link to='/movies/:id'>
+                                    <img
+                                    className="d-block w-100"
+                                    src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
+                                    alt=""/>
+                                </Link>
                                 <Carousel.Caption>
-                                    <Link to='/movies/:id'>
-                                        <h4 style={{color: 'rgba(255, 255, 255, 0.6)', fontFamily:'Impact, Charcoal, sans-serif'}}>
+                                        <h6 style={{color: 'rgba(255, 255, 255, 0.6)', fontFamily:'Impact, Charcoal, sans-serif'}}>
                                             {movie.title}
-                                        </h4>  
-                                    </Link>  
+                                        </h6>       
                                 </Carousel.Caption>
                             </Carousel.Item>
                         ))}

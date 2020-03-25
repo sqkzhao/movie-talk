@@ -6,6 +6,8 @@ import SearchTheaters from './components/SearchTheaters';
 import MovieDetailsOverview from './components/MovieDetailsOverview';
 import MovieDetailsVideos from './components/MovieDetailsVideos';
 import MovieDetailsInfo from './components/MovieDetailsInfo';
+import ChatBox from './components/ChatBox'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -38,15 +40,19 @@ function App() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-       <Router>
+
+      <Router>
         <Home path='/' />
         <SearchTheaters path='/theaters' />
         <MovieDetails path='/movies/:id/'>
           <MovieDetailsOverview path='overview' />
           <MovieDetailsVideos path='videos' />
           <MovieDetailsInfo path='info' />
+          <SearchTheaters path='theaters' />
         </MovieDetails>
       </Router>
+
+      <ChatBox />
     </div>
   );
 }

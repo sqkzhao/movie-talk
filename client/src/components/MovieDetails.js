@@ -84,7 +84,7 @@ const MovieDetails = (props) => {
                                         <Link to='/'><i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Add to Favorite" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
                                 </div>
-                                {/* HASHTAG */}
+                                {/* HASHTAG/KEYWORDS */}
                                 <div>
                                     {hashtag.map((keyword, i) => {
                                         if(i < 9) {

@@ -7,7 +7,6 @@ const MovieDetailsVideos = (props) => {
     const [trailers, setTrailers] = useState([])
 
     useEffect(() => {
-        // MOVIE TRAILERS
         axios.get('https://api.themoviedb.org/3/movie/' + id + '/videos?api_key='+API_KEY+'&language=en-US')
             .then(res => {
                 setTrailers(res.data.results)
@@ -26,7 +25,7 @@ const MovieDetailsVideos = (props) => {
                     </span>
                 ))}
             </div>
-            
+
         </div>
     )
 }

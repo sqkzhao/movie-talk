@@ -10,7 +10,6 @@ const MovieDetailsOverview = (props) => {
     const [trailers, setTrailers] = useState([])
     const [cast, setCast] = useState([])
     const [director, setDirector] = useState({})
-    const DEFAULT_IMG = 'https://u.osu.edu/dreesedata/files/2018/01/anon-1pq8ous.jpg'
 
     useEffect(() => {
         // MOVIE INFO
@@ -69,7 +68,7 @@ const MovieDetailsOverview = (props) => {
             <h3>Cast and Crew</h3>
             <div className="row mt-3 px-5 text-center">
                 <div className={styles.cast} className="ml-3">
-                    <img src={"http://image.tmdb.org/t/p/w185/"+ director.profile_path} onError={(e)=>e.target.src=DEFAULT_IMG} className={styles.cast}/><br/>
+                    <img src={"http://image.tmdb.org/t/p/w185/"+ director.profile_path} className={styles.cast}/><br/>
                     {director.name}<br/>
                     <span></span><br/>
                     <strong>Director</strong>

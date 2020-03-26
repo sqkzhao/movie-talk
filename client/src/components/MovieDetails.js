@@ -106,7 +106,7 @@ const MovieDetails = (props) => {
                         <Tab label="Overview" onClick={(e) => navigate('/movies/'+id+'/overview')} />
                         <Tab label="Details" onClick={(e) => navigate('/movies/'+id+'/info')} />
                         <Tab label="Videos" onClick={(e) => navigate('/movies/'+id+'/videos')} />
-                        <Tab label="Discussions" />
+                        <Tab label="Reviews" onClick={(e) => navigate('/movies/'+id+'/reviews')} />
                         <Tab label="Nearby Theaters" onClick={(e) => navigate('/movies/'+id+'/theaters')} />
                     </Tabs>
                 </AppBar>

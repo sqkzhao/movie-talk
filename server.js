@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express")
 const cors = require('cors');
-const app = express();
+const app = express()
 
 require("./server/config/mongoose.config");
 
@@ -10,25 +10,19 @@ app.use(express.urlencoded({ extended: true }));
 
 require('./server/routes/user.routes')(app);
 
-const server = app.listen(8000, () => {
-    console.log("Listening at Port 8000")
-});
+const server = app.listen(8000, ()=> {
+    console.log("connecting to port 8000")
+})
 
-// SOCKET
 const io = require("socket.io")(server)
 const chat = []
 
 io.on("connection", socket => {
-    console.log("Socket established")
-    socket.emit("welcome", "welcome from the server")
+    console.log("Nice to meet you. (shake hand) ", socket.id)
+    socket.emit("welcome", "welcome from the server!")
 
-    // NOT WORKING
-    socket.on("new_msg", msg => {
-        console.log("received...")
+    socket.on("send_msg", msg => {
         chat.push(msg)
-        console.log(msg)
-        io.emit("chat_history", chat)
+        io.emit("new_msg", chat)
     })
-
-
 })

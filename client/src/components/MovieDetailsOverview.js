@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from '@reach/router'
 import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 import styles from '../module.css/MovieDetails.module.css'
 
@@ -51,8 +52,8 @@ const MovieDetailsOverview = (props) => {
             <div className="row">
                 <h3 className="col-11">The Latest Trailer</h3>
                 <div className="text-right float-right col-1">
-                    <OverlayTrigger placement="top" delay={{ show: 200, hide: 500 }} overlay={renderTooltip}>
-                        <i className="fas fa-arrow-circle-right" id={styles.iconStyle}></i>
+                    <OverlayTrigger placement="right" delay={{ show: 200, hide: 500 }} overlay={renderTooltip}>
+                        <Link to='../videos'><i className="fas fa-arrow-circle-right text-warning" id={styles.videoIcon}></i></Link>
                     </OverlayTrigger>
                 </div>
             </div>
@@ -67,20 +68,18 @@ const MovieDetailsOverview = (props) => {
             {/* CAST AND CREW */}
             <h3>Cast and Crew</h3>
             <div className="row mt-3 px-5 text-center">
-                <div className={styles.cast} className="ml-3">
+                <div className={styles.cast} className="ml-2">
                     <img src={"http://image.tmdb.org/t/p/w185/"+ director.profile_path} className={styles.cast}/><br/>
-                    {director.name}<br/>
-                    <span></span><br/>
-                    <strong>Director</strong>
+                    <span className={styles.castName}>{director.name}</span><br/>
+                    <strong className={styles.castName}>Director</strong>
                 </div>
                 {cast.map((actor, i) => {
                     if(i < 6) {
                         return (
-                            <div key={i} className={styles.cast} className="ml-3">
+                            <div key={i} className={styles.cast} className="ml-2">
                                 <img src={"http://image.tmdb.org/t/p/w185/"+ actor.profile_path} className={styles.cast}/><br/>
-                                {actor.name}<br/>
-                                as<br/>
-                                <strong>{actor.character}</strong>
+                                <span className={styles.castName}>{actor.name}</span><br/>
+                                <strong className={styles.castName}>{actor.character}</strong>
                             </div>
                         )
                     }

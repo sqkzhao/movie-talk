@@ -126,7 +126,7 @@ const Search = (props) => {
                 </div>
             </section>
             
-
+            <hr className="half-rule"/>
 
             <section id="upcoming" style={{marginBottom:'5rem'}}>
                 <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>

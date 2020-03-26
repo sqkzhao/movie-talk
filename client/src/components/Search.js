@@ -11,6 +11,11 @@ const Search = (props) => {
     const [open, setOpen] = useState(false);
     const [upcoming, setUpcoming] = useState([])
     const [topRated, setTopRated] = useState([])
+    const stringReducer = (string) => {
+        if(string.length > 30){
+            return string.slice(0,30)
+        }
+    }
     
 
     useEffect(() => {
@@ -49,7 +54,7 @@ const Search = (props) => {
 
 
 
-            <section id="popular">
+            <section id="popular" style={{marginBottom:'5rem'}}>
                 <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                     <h1>Popular Movies</h1>
                     <div id="example-collapse-text">
@@ -123,7 +128,7 @@ const Search = (props) => {
             
 
 
-            <section id="upcoming">
+            <section id="upcoming" style={{marginBottom:'5rem'}}>
                 <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                     <h1>Upcoming Movies</h1>
                     <div id="example-collapse-text">
@@ -196,13 +201,15 @@ const Search = (props) => {
             </section>
         
 
+            <hr className="half-rule" style={{height:'10px'}}/>
+            
 
-
-            <section id="toprated">
+            <section id="toprated" style={{marginBottom:'5rem'}}>
                 <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                     <h1>Top Rated Movies</h1>
                     <div id="example-collapse-text">
                         {topRated.slice(0,2).map((movie,i) =>(
+                            
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
                                     <Link to='/movies/:id'>
@@ -212,7 +219,7 @@ const Search = (props) => {
                                         alt=""/>
                                     </Link>
                                 </div>
-                                <div style={{width:'200px',margin:'10px', display:'inline-block', verticalAlign:'top'}}>
+                                <div style={{width:'250px', margin:'10px', display:'inline-block', verticalAlign:'top'}}>
                                     <h1>
                                         <svg className="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -220,15 +227,20 @@ const Search = (props) => {
                                         {movie.vote_average}
                                     </h1>
                                    
-                                    <h4 style={{width:'200px', color: 'rgba(0, 0, 0, 0.6)'}}>{movie.title}</h4>
+                                    <h4 style={{width:'250px', color: 'rgba(0, 0, 0, 0.6)'}}>{movie.title}</h4>
                                     <h4></h4>
-                                    <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
-                                    <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <h6 style={{width:'250px'}}>Released: {movie.release_date}</h6>
+                                    <hr className="half-rule"/>
+                                    <p style={{width: '250px', fontWeight:'lighter', fontSize:'15px', fontFamily:'system-ui', textAlign:'left', lineHeight:'1.5'}}>
+                                        <span style={{color:'black', border:'solid black 1px', fontWeight:'stronger'}}>Overview: </span>
+                                        {movie.overview.slice(0,250)} ...<Link to='/movies/:id'>More</Link> 
+                                    </p>
+                                    
                                 </div>
                             </div>
                         ))}
                     </div>
+
                     {/* A button to view more movies */}
                     <Button
                     onClick={() => setOpen(!open)}

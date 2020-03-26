@@ -30,7 +30,7 @@ const Home = (props) => {
     return(
         <div>
 
-                <div style={{width:'300px', margin:'0 auto', textAlign:'center'}}>
+                <div style={{width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                 <h1>Upcoming Movies</h1>
                     <Carousel>
                         {upcoming.map((item,i) =>(
@@ -52,7 +52,7 @@ const Home = (props) => {
                 </div>
 
 
-                <div style={{ width:'300px', margin:'0 auto', textAlign:'center'}}>
+                <div style={{ width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                     <h1>Now Playing Movies</h1>
                     <Carousel>
                         {nowPlaying.map((movie,i) =>(

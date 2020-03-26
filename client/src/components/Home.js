@@ -32,6 +32,7 @@ const Home = (props) => {
                 {/* Poster Display for upcoming movies */}
                 <div style={{width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                 <h1>Upcoming</h1>
+
                     <Carousel>
                         {upcoming.map((item,i) =>(
                             <Carousel.Item key={i}>
@@ -54,6 +55,7 @@ const Home = (props) => {
 
                 <div style={{ width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                     <h1>Now Playing</h1>
+
                     <Carousel>
                         {nowPlaying.map((movie,i) =>(
                             <Carousel.Item key={i}>

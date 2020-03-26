@@ -29,7 +29,7 @@ const SearchComponent = (props) => {
                         {/* get input value returned from getInputProps() */}
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                                <span className="input-group-text rounded-0"><i className="fas fa-search-location" id={styles.searchIcon}></i> Search nearby movie theaters</span>
+                                <span className="input-group-text rounded-0 bg-light"><i className="fas fa-search-location" id={styles.searchIcon}></i> Search nearby movie theaters</span>
                             </div>
                             <input {...getInputProps({ placeholder:"Enter keyword 'movie' or any movie theaters company", className:"form-control rounded-0" })} />  
                         </div>
@@ -37,8 +37,9 @@ const SearchComponent = (props) => {
                         <div className="text-dark">
                             {suggestions.map((suggestion) => {
                                 const style = {
-                                    backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
-                                    padding: "2px"
+                                    backgroundColor: suggestion.active ? "#292b2c" : "#fff",
+                                    padding: "2px",
+                                    color: suggestion.active ? "#fff" : "#292b2c" 
                                 }
                                 if(suggestion.terms.length > 4) {
                                     return(

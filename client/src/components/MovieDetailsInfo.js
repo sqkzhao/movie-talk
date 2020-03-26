@@ -28,6 +28,7 @@ const MovidDetailsInfo = (props) => {
 
     return (
         <div className="container-sm px-5 pt-3 pb-5">
+            {/* DETAILS */}
             <h2>Details</h2>
             <div className="px-5 mt-3">
                 <p><strong>Official site: </strong>{movie.homepage}</p>
@@ -75,8 +76,9 @@ const MovidDetailsInfo = (props) => {
                 <p><strong>Budget: </strong>$ {movie.budget}</p>
                 <p><strong>Revenue: </strong>$ {movie.revenue}</p>
             </div>
-            <p data-toggle="collapse" data-target="#collapseCast" aria-expanded="false" aria-controls="collapseCast"><span className="h2 mr-2">Cast</span>click here to expand</p>
-            <div class="collapse" id="collapseCast">
+            {/* CAST */}
+            <p data-toggle="collapse" data-target="#collapseCast" aria-expanded="true" aria-controls="collapseCast"><span className="h2 mr-2">Cast</span>click here to expand/collapse</p>
+            <div class="collapse show" id="collapseCast">
                 <div class="card card-body mb-3">
                     <table>
                         <tbody>
@@ -93,7 +95,8 @@ const MovidDetailsInfo = (props) => {
                     </table>
                 </div>
             </div>
-            <p data-toggle="collapse" data-target="#collapseCrew" aria-expanded="false" aria-controls="collapseCrew"><span className="h2 mr-2">Crew</span>click here to expand</p>
+            {/* CREW */}
+            <p data-toggle="collapse" data-target="#collapseCrew" aria-expanded="false" aria-controls="collapseCrew"><span className="h2 mr-2">Crew</span>click here to expand/collapse</p>
             <div class="collapse" id="collapseCrew">
                 <div class="card card-body">
                     <table>

@@ -83,7 +83,7 @@ const MovieDetails = (props) => {
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}><div className={styles.tooltip}>Find Nearby Theater</div></Tooltip>
                                     }>
-                                        <Link to='/'><i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Map" id={styles.iconStyle}></i></Link>
+                                        <Link to='./theaters'><i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Map" id={styles.iconStyle}></i></Link>
                                     </OverlayTrigger>
                                 </div>
                                 {/* HASHTAG/KEYWORDS */}
@@ -104,10 +104,10 @@ const MovieDetails = (props) => {
                 <AppBar position="static">
                     <Tabs variant="fullWidth" className="container-md">
                         <Tab label="Overview" onClick={(e) => navigate('/movies/'+id+'/overview')} />
-                        <Tab label="Nearby Theaters" onClick={(e) => navigate('/movies/'+id+'/theaters')} />
-                        <Tab label="Videos" onClick={(e) => navigate('/movies/'+id+'/videos')} />
                         <Tab label="Details" onClick={(e) => navigate('/movies/'+id+'/info')} />
-                        <Tab label="Reviews & Comments" />
+                        <Tab label="Videos" onClick={(e) => navigate('/movies/'+id+'/videos')} />
+                        <Tab label="Reviews" onClick={(e) => navigate('/movies/'+id+'/reviews')} />
+                        <Tab label="Nearby Theaters" onClick={(e) => navigate('/movies/'+id+'/theaters')} />
                     </Tabs>
                 </AppBar>
             </div>

@@ -23,10 +23,10 @@ const UserSchema = new mongoose.Schema({
         minlength: [3, "Password must be at least 3 characters"]
 
     },
-    // favorites: [{ id: String, name: String }],
-    // watchlist: [{ id: String, name: String }],
-    // friendlist: [{ id: String, name: String}],
-    // reviews: [{ id: String, review: String }]
+    favorites: [{ id: String, name: String }],
+    watchlist: [{ id: String, name: String }],
+    friendlist: [{ id: String, name: String}],
+    reviews: [{ id: String, review: String }]
     // validate: {
     //     validator: val => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
     //     message: "Please enter a valid email"

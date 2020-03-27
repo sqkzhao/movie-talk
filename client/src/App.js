@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, Router } from '@reach/router'
 import Home from './components/Home'
 import MovieDetails from './components/MovieDetails';
@@ -9,6 +9,7 @@ import MovieDetailsInfo from './components/MovieDetailsInfo';
 import MovieDetailsReview from './components/MovieDetailsReview';
 import Chat from './components/Chat'
 import Search from './components/Search'
+import Profile from './components/Profile';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 
@@ -19,6 +20,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Row, Col, Form } from 'react-bootstrap'
 
 function App() {
+  const [currentUser, setCurrentUser] = useState("kay")
+  const [recentlyViewed, setRecentlyViewed] = useState([])
+
   return (
     <div style={{background:"rgb(255,193,7)"}}>
 
@@ -36,7 +40,7 @@ function App() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link><Link to="/"><span className="text-light">My Profile</span></Link></Nav.Link>
+            <Nav.Link><Link to="/profile"><span className="text-light">My Profile</span></Link></Nav.Link>
             <Nav.Link><Link to="/sign_up"><span className="text-light">Sign Up</span></Link></Nav.Link>
             <Nav.Link><Link to="/sign_in"><span className="text-light">Sign In</span></Link></Nav.Link> 
           </Nav>
@@ -53,15 +57,16 @@ function App() {
         <Home path='/' />
         <Search path='/searchmovies' />
         <SearchTheaters path='/theaters' />
-        <MovieDetails path='/movies/:id/'>
+        <MovieDetails path='/movies/:id/' recentlyViewed={recentlyViewed} setRecentlyViewed={setRecentlyViewed}>
           <MovieDetailsOverview path='overview' />
           <MovieDetailsVideos path='videos' />
           <MovieDetailsInfo path='info' />
           <MovieDetailsReview path='reviews' />
           <SearchTheaters path='theaters' />
         </MovieDetails>
+        <Profile path='/profile' currentUser={currentUser} setCurrentUser={setCurrentUser} recentlyViewed={recentlyViewed} setRecentlyViewed={setRecentlyViewed} />
         <SignUp path='/sign_up'/>
-        <SignIn path='/sign_in'/>
+        <SignIn path='/sign_in' currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </Router>
 
       <Chat />

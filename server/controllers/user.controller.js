@@ -16,26 +16,26 @@ module.exports.createUser = (req,res) => {
         .catch(err => res.status(400).json(err))
 }
 
-module.exports.getOneUser = (req,res) => {
-    const {id} = req.params
-    User.findOne({_id:id})
-        .then(oneUser => res.json(oneUser))
-        .catch(err => res.json(err))
-}
+// module.exports.getOneUser = (req,res) => {
+//     const {id} = req.params
+//     User.findOne({_id:id})
+//         .then(oneUser => res.json(oneUser))
+//         .catch(err => res.json(err))
+// }
 
-module.exports.deleteUser = (req,res) => {
-    const {id} = req.params;
-    User.deleteOne({_id:id})
-        .then(deletedResult => res.json(deletedResult))
-        .catch(err => res.json(err))
-}
+// module.exports.deleteUser = (req,res) => {
+//     const {id} = req.params;
+//     User.deleteOne({_id:id})
+//         .then(deletedResult => res.json(deletedResult))
+//         .catch(err => res.json(err))
+// }
 
-module.exports.editUser = (req, res) => {
-    const {id} = req.params;
-    User.findByIdAndUpdate({_id:id}, req.body, {new:true})
-        .then(editedUser => res.json(editedUser))
-        .catch(err => res.json(err))
-}
+// module.exports.editUser = (req, res) => {
+//     const {id} = req.params;
+//     User.findByIdAndUpdate({_id:id}, req.body, {new:true})
+//         .then(editedUser => res.json(editedUser))
+//         .catch(err => res.json(err))
+// }
 
 
 

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { navigate } from '@reach/router'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,8 +48,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+// SIGNIN -----------------------------
+export default function SignIn(props) {
   const classes = useStyles();
+  // pass currentuser from the App.js
+  const { currentUser, setCurrentUser } = props
+  const [username, setUsername] = useState('')
+
+  const loginHandler = (e) => {
+    e.preventDefault()
+    // axios GET ONE USER??
+    navigate('/')
+  }
 
   return (
     <Container component="main" maxWidth="xs" style={{background:'white'}}>
@@ -59,7 +71,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={loginHandler}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +82,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
             variant="outlined"

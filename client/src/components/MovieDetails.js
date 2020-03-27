@@ -6,7 +6,7 @@ import { AppBar, Tabs, Tab } from '@material-ui/core'
 import styles from '../module.css/MovieDetails.module.css'
 
 const MovieDetails = (props) => {
-    const { id } = props
+    const { id, recentlyViewed, setRecentlyViewed } = props
     const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [movie, setMovie] = useState({})
     const [genres, setGenres] = useState([])
@@ -24,6 +24,9 @@ const MovieDetails = (props) => {
                 const min = res.data.runtime%60
                 setRuntime(`${hr}h ${min}min`)
                 setYear(res.data.release_date.slice(0, 4))
+                // add the movie to the recently viewed list
+                recentlyViewed.push(res.data)
+                setRecentlyViewed(recentlyViewed)
             })
             .catch(err => console.log(err))
         // HASHTAG/KEYWORDS

@@ -1,9 +1,16 @@
-// const UserController = require("../controllers/user.controller")
+const UserController = require("../controllers/user.controller")
 
 module.exports = function(app) {
-    // app.get("/users", UserController.getAllUser)
-    // app.post("/users", UserController.createUser)
-    // app.get("/users/:id", UserController.getOneUser)
-    // app.delete("/users/:id", UserController.deleteUser)
-    // app.put("/users/:id", UserController.editUser)
+    app.get('/', UserController.index)
+    app.get('/users', UserController.getAllUsers)
+    app.post("/users", UserController.createUser)
+    // app.get("/users/:id", function(req, res) {
+    //     UserController.getOneUser
+    // })
+    // app.delete("/users/:id", function(req, res) {
+    //     UserController.deleteUser
+    // })
+    // app.put("/users/:id", function(req, res) {
+    //     UserController.editUser
+    // })
 }

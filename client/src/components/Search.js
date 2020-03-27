@@ -61,7 +61,7 @@ const Search = (props) => {
                         {popular.slice(0,2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to= {'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -76,11 +76,11 @@ const Search = (props) => {
                                         {movie.vote_average}
                                     </h1>
                                    
-                                    <h4 style={{width:'200px', color: 'rgba(0, 0, 0, 0.6)'}}>{movie.title}</h4>
+                                    <h4 style={{width:'200px', color: 'rgba(0, 0, 0, 0.6)'}}>{movie.title} ({movie.release_date.slice(0,4)})</h4>
                                     <h4></h4>
                                     <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
                                     <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <Link to={'/movies/'+movie.id}><h6>More Info...</h6></Link> 
                                 </div>
                             </div>
                         ))}
@@ -98,7 +98,7 @@ const Search = (props) => {
                         {popular.slice(2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -116,8 +116,10 @@ const Search = (props) => {
                                     <h4 style={{width:'200px', color: 'rgba(0, 0, 0, 0.6)'}}>{movie.title}</h4>
                                     <h4></h4>
                                     <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
-                                    <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}>
+                                        <span style={{color:'black', fontWeight:'strong'}}>Overview:</span>
+                                        {movie.overview.slice(0,250)}</h6>
+                                    <Link to={'/movies/'+movie.id}><h6>More Info...</h6></Link> 
                                 </div>
                             </div>
                         ))}
@@ -126,7 +128,7 @@ const Search = (props) => {
                 </div>
             </section>
             
-
+            <hr className="half-rule"/>
 
             <section id="upcoming" style={{marginBottom:'5rem'}}>
                 <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
@@ -135,7 +137,7 @@ const Search = (props) => {
                         {upcoming.slice(0,2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -154,7 +156,7 @@ const Search = (props) => {
                                     <h4></h4>
                                     <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
                                     <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <Link to={'/movies/'+movie.id}><h6>More Info...</h6></Link> 
                                 </div>
                             </div>
                         ))}
@@ -172,7 +174,7 @@ const Search = (props) => {
                         {popular.slice(2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -191,7 +193,7 @@ const Search = (props) => {
                                     <h4></h4>
                                     <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
                                     <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <Link to={'/movies/'+movie.id}><h6>More Info...</h6></Link> 
                                 </div>
                             </div>
                         ))}
@@ -212,7 +214,7 @@ const Search = (props) => {
                             
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -227,13 +229,13 @@ const Search = (props) => {
                                         {movie.vote_average}
                                     </h1>
                                    
-                                    <h4 style={{width:'250px', color: 'rgba(0, 0, 0, 0.6)'}}>{movie.title}</h4>
+                                    <h4 style={{width:'250px', color: 'rgba(0, 0, 0, 0.6)'}}>{movie.title} <span style={{fontSize:'1rem'}}>({movie.release_date.slice(0,4)})</span></h4>
                                     <h4></h4>
                                     <h6 style={{width:'250px'}}>Released: {movie.release_date}</h6>
                                     <hr className="half-rule"/>
                                     <p style={{width: '250px', fontWeight:'lighter', fontSize:'15px', fontFamily:'system-ui', textAlign:'left', lineHeight:'1.5'}}>
                                         <span style={{color:'black', border:'solid black 1px', fontWeight:'stronger'}}>Overview: </span>
-                                        {movie.overview.slice(0,250)} ...<Link to='/movies/:id'>More</Link> 
+                                        {movie.overview.slice(0,250)} ...<Link to={'/movies/'+movie.id+'/overview'}>More</Link> 
                                     </p>
                                     
                                 </div>
@@ -254,7 +256,7 @@ const Search = (props) => {
                         {topRated.slice(2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -273,7 +275,7 @@ const Search = (props) => {
                                     <h4></h4>
                                     <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
                                     <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <Link to={'/movies/'+movie.id}><h6>More Info...</h6></Link> 
                                 </div>
                             </div>
                         ))}

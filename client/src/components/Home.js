@@ -11,6 +11,7 @@ const Home = (props) => {
     const [upcoming, setUpcoming] = useState([])
     const [nowPlaying, setNowPlaying] = useState([])
     const [popular, setPopular] = useState([])
+    const [genre, setGenre] = useState([])
 
     useEffect(() => {
         axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=' +API_KEY+ '&language=en-US&page=1')
@@ -26,16 +27,21 @@ const Home = (props) => {
             .catch(err => console.log(err))
 
         axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' +API_KEY+ '&language=en-US&page=1')
-        .then(res => {
+            .then(res => {
             setPopular(res.data.results)
-        })
-        .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+
+        axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=' +API_KEY+ '&language=en-US')
+            .then(res => {
+                setGenre(res.data.genres)
+            })
     }, [])
 
     return(
         <div className="pb-5">
             {/* Poster Display for upcoming movies */}
-            <div style={{width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
+            <div style={{width:'800px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif', padding:'0rem 0rem 5rem 0rem'}}>
                 <h1>Upcoming</h1>
                 <Carousel>
                     {upcoming.map((movie,i) =>(
@@ -43,20 +49,20 @@ const Home = (props) => {
                             <Link to={'/movies/'+ movie.id +'/overview'}>
                                 <img
                                 className="d-block w-100"
-                                src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
+                                src={"http://image.tmdb.org/t/p/w780" + movie.backdrop_path}
                                 alt=""/>
                             </Link>
                             <Carousel.Caption>
-                                <h6 style={{color: 'rgba(255, 255, 255, 0.6)', fontFamily:'Impact, Charcoal, sans-serif'}}>
+                                <h1 style={{color: 'rgba(255, 255, 255)', fontFamily:'Impact, Charcoal, sans-serif', fontSize:'5rem', textShadow: '2px 2px rgba(0, 0, 0, 0.5)'}}>
                                     {movie.title}
-                                </h6>               
+                                </h1>               
                             </Carousel.Caption>
                         </Carousel.Item>
                     ))}
                 </Carousel>
             </div>
 
-            <div style={{ width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
+            <div style={{ width:'800px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                 <h1>Now Playing</h1>
                 <Carousel>
                     {nowPlaying.map((movie,i) =>(
@@ -64,13 +70,13 @@ const Home = (props) => {
                             <Link to={'/movies/'+ movie.id +'/overview'}>
                                 <img
                                 className="d-block w-100"
-                                src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
+                                src={"http://image.tmdb.org/t/p/w780" + movie.backdrop_path}
                                 alt=""/>
                             </Link>
                             <Carousel.Caption>
-                                    <h6 style={{color: 'rgba(255, 255, 255, 0.6)', fontFamily:'Impact, Charcoal, sans-serif'}}>
+                                    <h1 style={{color: 'rgba(255, 255, 255)', fontFamily:'Impact, Charcoal, sans-serif', fontSize:'5rem', textShadow: '2px 2px rgba(0, 0, 0, 0.5)'}}>
                                         {movie.title}
-                                    </h6>       
+                                    </h1>       
                             </Carousel.Caption>
                         </Carousel.Item>
                     ))}
@@ -88,21 +94,15 @@ const Home = (props) => {
                 </GridList>
             </div>
             
-{           /* 
-            {upcoming.map((item,i) =>(
-                <div  style={{display:'inline-block', border:'1px black solid'}}>
-                    <p>{item.title}</p>
-                    <img src="https://api.themoviedb.org/3/movie/upcoming?api_key=fe849d6987c0000e3dc1352ccf5118fd&language=en-US&page=1/uZMZyvarQuXLRqf3xdpdMqzdtjb.jpg "></img>
-                </div>   
-            ))}
-            
-            {nowPlaying.map((item,i) =>(
-                <div  style={{display:'inline-block', border:'1px black solid'}}>
-                    <p>{item.title}</p>
-                    <img src="https://api.themoviedb.org/3/movie/upcoming?api_key=fe849d6987c0000e3dc1352ccf5118fd&language=en-US&page=1/uZMZyvarQuXLRqf3xdpdMqzdtjb.jpg "></img>
+{/*        
+            {genre.map((genre,i) =>(
+                <div>
+                    <p>{genre.name}</p>
                 </div>   
             ))} */}
+            
 
+  
         </div>
     )
 }

@@ -42,6 +42,7 @@ module.exports.editUser = (req, res) => {
 
 
 
+<<<<<<< HEAD
 register: (req, res) => {
   const user = new User(req.body);
   user
@@ -51,4 +52,15 @@ register: (req, res) => {
     })
     .catch(err => res.json(err));
 };
+=======
+// register: (req, res) => {
+//   const user = new User(req.body);
+//   user
+//     .save()
+//     .then(() => {
+//         res.json({ msg: "success!", user: user });
+//     })
+//     .catch(err => res.json(err));
+// };
+>>>>>>> 4725fda76dd1876f0f53cf3db12d07649b844455
 

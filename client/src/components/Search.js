@@ -61,7 +61,7 @@ const Search = (props) => {
                         {popular.slice(0,2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to= {'/movies/'+movie.id}>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}

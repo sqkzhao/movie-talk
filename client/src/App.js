@@ -6,6 +6,10 @@ import SearchTheaters from './components/SearchTheaters';
 import MovieDetailsOverview from './components/MovieDetailsOverview';
 import MovieDetailsVideos from './components/MovieDetailsVideos';
 import MovieDetailsInfo from './components/MovieDetailsInfo';
+import MovieDetailsReview from './components/MovieDetailsReview';
+// import ChatBox from './components/ChatBox'
+import Chat from './components/Chat'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -40,19 +44,24 @@ function App() {
       </Navbar>
 
 
+      <Router>
 
-       <Router>
         <Home path='/' />
+        {/* <ChatBox path='/chat' /> */}
         <Search path='/searchmovies' />
         <SearchTheaters path='/theaters' />
         <MovieDetails path='/movies/:id/'>
           <MovieDetailsOverview path='overview' />
           <MovieDetailsVideos path='videos' />
           <MovieDetailsInfo path='info' />
+          <MovieDetailsReview path='reviews' />
+          <SearchTheaters path='theaters' />
         </MovieDetails>
         <SignUp path='/sign_up'/>
         <SignIn path='/sign_in'/>
       </Router>
+
+      <Chat />
     </div>
   );
 }

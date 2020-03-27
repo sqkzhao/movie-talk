@@ -1,3 +1,4 @@
+
 const UserController = require("../controllers/user.controller")
 
 module.exports = app => {
@@ -7,4 +8,3 @@ module.exports = app => {
     app.delete("/users/:id", UserController.deleteUser)
     app.put("/users/:id", UserController.editUser)
 }
-

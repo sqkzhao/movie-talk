@@ -1,0 +1,5 @@
+.chatBox {
+    height: 300px;
+    overflow: scroll;
+    font-size: small;
+}

@@ -15,7 +15,7 @@ const MovieDetailsVideos = (props) => {
     }, [])
 
     return (
-        <div className="container-sm px-5 pt-3">
+        <div className="container-sm px-5 pt-3 pb-5">
 
             <h2 className="mb-3">Trailers</h2>
             <div className="text-center">

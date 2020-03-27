@@ -1,5 +1,9 @@
 const {User} = require("../models/user.model");
 
+module.exports.index = (req, res) => {
+    res.json({ msg: "hello" })
+}
+
 module.exports.getAllUsers = (req,res) => {
     User.find({})
         .then(allUsers => res.json(allUsers))
@@ -24,7 +28,6 @@ module.exports.deleteUser = (req,res) => {
     User.deleteOne({_id:id})
         .then(deletedResult => res.json(deletedResult))
         .catch(err => res.json(err))
-
 }
 
 module.exports.editUser = (req, res) => {

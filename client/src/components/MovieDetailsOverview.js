@@ -49,16 +49,16 @@ const MovieDetailsOverview = (props) => {
 
             {/* CAST AND CREW */}
             <h3 className="mt-3">Cast and Crew</h3>
-            <div className="row mt-3 px-5 text-center">
-                <div className={styles.cast} className="ml-2">
+            <div className="row mt-3 px-5 pb-4 text-center">
+                <div className={styles.castBox}>
                     <img src={"http://image.tmdb.org/t/p/w185/"+ director.profile_path} className={styles.cast}/><br/>
                     <span className={styles.castName}>{director.name}</span><br/>
                     <strong className={styles.castName}>Director</strong>
                 </div>
                 {cast.map((actor, i) => {
-                    if(i < 6) {
+                    if(i < 5) {
                         return (
-                            <div key={i} className={styles.cast} className="ml-2">
+                            <div key={i} className={styles.castBox}>
                                 <img src={"http://image.tmdb.org/t/p/w185/"+ actor.profile_path} className={styles.cast}/><br/>
                                 <span className={styles.castName}>{actor.name}</span><br/>
                                 <strong className={styles.castName}>{actor.character}</strong>
@@ -69,7 +69,7 @@ const MovieDetailsOverview = (props) => {
             </div>
 
             {/* TRAILER */}
-            <div className="row mt-4">
+            <div className="row mt-5">
                 <h3 className="col-11">The Latest Trailer</h3>
                 <div className="text-right float-right col-1">
                     <OverlayTrigger placement="right" delay={{ show: 200, hide: 500 }} overlay={renderTooltip}>

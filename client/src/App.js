@@ -23,7 +23,7 @@ function App() {
     <div style={{background:"rgb(255,193,7)"}}>
 
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand><Link to="/"><span className="text-white"><i class="fas fa-film"></i><strong> MOVIE TALK!</strong></span></Link></Navbar.Brand>
+        <Navbar.Brand><Link to="/"><span className="text-white"><i className="fas fa-film"></i><strong> MOVIE TALK!</strong></span></Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">

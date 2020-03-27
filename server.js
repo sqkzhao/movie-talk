@@ -18,7 +18,6 @@ const io = require("socket.io")(server)
 const chat = []
 
 io.on("connection", socket => {
-    console.log("Nice to meet you. (shake hand) ", socket.id)
     socket.emit("welcome", "welcome from the server!")
 
     socket.on("send_msg", msg => {

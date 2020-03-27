@@ -6,6 +6,8 @@
 ### npm init -y
 
 ### npm i express mongoose cors
+### npm install socket.io
+### npm i bcrypt
 
 ## CLIENT:
 
@@ -14,3 +16,4 @@
 ### npm install @material-ui/core
 ### npm install --save react-google-maps
 ### npm install --save react-places-autocomplete
+### npm install socket.io-client

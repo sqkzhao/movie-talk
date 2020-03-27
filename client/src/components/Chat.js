@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from '@reach/router'
 import io from 'socket.io-client'
 import GetStarted from './GetStarted'
 import styles from '../module.css/Chat.module.css'
@@ -42,7 +43,7 @@ const Chat = (props) => {
     }
 
     return(
-        <div className="card col-4 text-center position-fixed fixed-bottom">
+        <div className="card col-4 text-center position-fixed fixed-bottom border border-dark">
             <nav className="row navbar navbar-dark bg-dark text-white" data-toggle="collapse" data-target="#collapseChat" aria-expanded="false" aria-controls="collapseChat">
                 <span className="font-weight-bold">Let's Chat! - Recent Movies</span>
             </nav>
@@ -73,8 +74,8 @@ const Chat = (props) => {
                     </div>
                     {/* INPUT BOX */}
                     <form onSubmit={sendMsgHandler} className="row text-center">
-                        <input type="text" onChange={(e) => setMessage(e.target.value)} className="form-control col-10 rounded-0" />
-                        <input type="submit" value="Send" className="col-2 btn btn-small btn-warning rounded-0" />
+                        <input type="text" onChange={(e) => setMessage(e.target.value)} maxlength="70" className="form-control col-10 rounded-0" />
+                        <input type="submit" value="Send" className="col-2 btn btn-small btn-outline-warning bg-dark rounded-0" />
                     </form>
                 </div>
                 }

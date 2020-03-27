@@ -1,20 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {Link,Router} from '@reach/router';
-import SearchTheaters from './SearchTheaters'
 import Carousel from 'react-bootstrap/Carousel';
-
+import { GridList, GridListTile } from '@material-ui/core'
+import styles from '../module.css/Chat.module.css'
 
 
 const Home = (props) => {
     const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [upcoming, setUpcoming] = useState([])
     const [nowPlaying, setNowPlaying] = useState([])
-
-    
-    
-    
-    
+    const [popular, setPopular] = useState([])
 
     useEffect(() => {
         axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=' +API_KEY+ '&language=en-US&page=1')
@@ -28,6 +24,12 @@ const Home = (props) => {
                 setNowPlaying(res.data.results)
             })
             .catch(err => console.log(err))
+
+        axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' +API_KEY+ '&language=en-US&page=1')
+        .then(res => {
+            setPopular(res.data.results)
+        })
+        .catch(err => console.log(err))
     }, [])
 
 
@@ -62,7 +64,6 @@ const Home = (props) => {
                     </Carousel>
                 </div>
 
-
                 <div style={{ width:'300px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                     <h1>Now Playing</h1>
 
@@ -84,7 +85,33 @@ const Home = (props) => {
                         ))}
                     </Carousel>
                 </div>
-        
+
+                <h2 className="text-center pt-5 mt-3" style={{fontFamily:'Impact, Charcoal, sans-serif'}}>Popular Movies</h2>
+                <div className="row justify-content-center pb-5">
+                    <GridList cellHeight={280} className={styles.gridList} cols={5} >
+                        {popular.map((item, i) => (
+                            <GridListTile key={i}>
+                                <Link to={"/movies/"+item.id+"/overview"}><img src={"http://image.tmdb.org/t/p/w185" + item.poster_path} alt={item.title}/></Link>
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </div>
+            
+{/* 
+            {upcoming.map((item,i) =>(
+                <div  style={{display:'inline-block', border:'1px black solid'}}>
+                    <p>{item.title}</p>
+                    <img src="https://api.themoviedb.org/3/movie/upcoming?api_key=fe849d6987c0000e3dc1352ccf5118fd&language=en-US&page=1/uZMZyvarQuXLRqf3xdpdMqzdtjb.jpg "></img>
+                </div>   
+            ))}
+            
+            {nowPlaying.map((item,i) =>(
+                <div  style={{display:'inline-block', border:'1px black solid'}}>
+                    <p>{item.title}</p>
+                    <img src="https://api.themoviedb.org/3/movie/upcoming?api_key=fe849d6987c0000e3dc1352ccf5118fd&language=en-US&page=1/uZMZyvarQuXLRqf3xdpdMqzdtjb.jpg "></img>
+                </div>   
+            ))} */}
+
 
 
         </div>

@@ -65,7 +65,7 @@ const MovieDetails = (props) => {
                                     <i className="fab fa-hotjar ml-1 text-warning"></i>
                                     <i className="fab fa-hotjar ml-1 text-warning"></i> 
                                 </p>
-                                {/* BUTTONS */}
+                                {/* ICONS */}
                                 <div className="my-5">
                                     {/* FAVORITE */}
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={

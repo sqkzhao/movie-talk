@@ -73,11 +73,11 @@ const MovieDetailsOverview = (props) => {
                 <h3 className="col-11">The Latest Trailer</h3>
                 <div className="text-right float-right col-1">
                     <OverlayTrigger placement="right" delay={{ show: 200, hide: 500 }} overlay={renderTooltip}>
-                        <Link to='../videos'><i className="fas fa-arrow-circle-right text-warning" id={styles.videoIcon}></i></Link>
+                        <Link to='../videos'><i className="fas fa-arrow-circle-right text-warning" id={styles.iconStyle}></i></Link>
                     </OverlayTrigger>
                 </div>
             </div>
-            <div className="my-3 px-5 text-center">
+            <div className="my-3 px-5 pb-3 text-center">
                 {trailers.map((trailer, i) => {
                     if(i == 0) {
                         return <iframe key={i} width="680" height="405" src={"https://www.youtube.com/embed/"+trailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>

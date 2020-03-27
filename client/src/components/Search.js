@@ -4,7 +4,6 @@ import {Link,Router} from '@reach/router';
 import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
 
-
 const Search = (props) => {
     const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [popular, setPopular] = useState([])
@@ -17,7 +16,6 @@ const Search = (props) => {
         }
     }
     
-
     useEffect(() => {
         axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' +API_KEY+ '&language=en-US&page=1')
             .then(res => {
@@ -36,23 +34,16 @@ const Search = (props) => {
                 setTopRated(res.data.results)   
             })
             .catch(err => console.log(err))
-
-      
     }, [])
-
-
 
     return(
         <div>
-            
 
             <form className="form-inline active-cyan-4" style={{display:'flex',justifyContent:'center',margin:"20px 0px 20px 0px"}}>
                 <input className="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search Movies"
                     aria-label="Search"/>
                 <Button variant="primary"><i className="fas fa-search" aria-hidden="true" style={{color:'white'}}/></Button>
             </form>
-
-
 
             <section id="popular" style={{marginBottom:'5rem'}}>
                 <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
@@ -206,7 +197,7 @@ const Search = (props) => {
             <hr className="half-rule" style={{height:'10px'}}/>
             
 
-            <section id="toprated" style={{marginBottom:'5rem'}}>
+            <section id="toprated" style={{paddingBottom:'5rem'}}>
                 <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                     <h1>Top Rated Movies</h1>
                     <div id="example-collapse-text">

@@ -14,7 +14,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Search from './components/Search'
-
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 function App() {
   return (
@@ -25,20 +26,16 @@ function App() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            
             <NavDropdown title="Movies" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/searchmovies#popular">Popular</NavDropdown.Item>
               <NavDropdown.Item href="/searchmovies#upcoming">Upcoming</NavDropdown.Item>
               <NavDropdown.Item href="/searchmovies#toprated">Top Rated</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="#deets">Sign In</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Sing in
-            </Nav.Link>
+            <Nav.Link href="/sign_up">Sign Up</Nav.Link>
+            <Nav.Link href="/sign_in">Sign In</Nav.Link> 
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -54,6 +51,8 @@ function App() {
           <MovieDetailsReview path='reviews' />
           <SearchTheaters path='theaters' />
         </MovieDetails>
+        <SignUp path='/sign_up'/>
+        <SignIn path='/sign_in'/>
       </Router>
 
       <Chat />

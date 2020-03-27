@@ -61,7 +61,7 @@ const Search = (props) => {
                         {popular.slice(0,2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -80,7 +80,7 @@ const Search = (props) => {
                                     <h4></h4>
                                     <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
                                     <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <Link to={'/movies/'+movie.id}><h6>More Info...</h6></Link> 
                                 </div>
                             </div>
                         ))}
@@ -98,7 +98,7 @@ const Search = (props) => {
                         {popular.slice(2).map((movie,i) =>(
                             <div key={i} style={{display:'inline-block'}}>
                                 <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
-                                    <Link to='/movies/:id'>
+                                    <Link to={'/movies/'+movie.id}>
                                         <img
                                         className="d-block w-100"
                                         src={"http://image.tmdb.org/t/p/w780" + movie.poster_path}
@@ -117,7 +117,7 @@ const Search = (props) => {
                                     <h4></h4>
                                     <h6 style={{width:'200px'}}>Released: {movie.release_date}</h6>
                                     <h6 style={{width: '200px', fontWeight:'lighter', color:'grey', fontFamily:'Tahoma, Geneva, sans-serif'}}><span style={{color:'black', fontWeight:'strong'}}>Overview:</span>{movie.overview}</h6>
-                                    <Link to='/movies/:id'><h6>More Info...</h6></Link> 
+                                    <Link to={'/movies/'+movie.id}><h6>More Info...</h6></Link> 
                                 </div>
                             </div>
                         ))}

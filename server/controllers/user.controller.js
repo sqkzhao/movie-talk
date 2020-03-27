@@ -42,13 +42,13 @@ module.exports.editUser = (req, res) => {
 
 
 
-register: (req, res) => {
-  const user = new User(req.body);
-  user
-    .save()
-    .then(() => {
-        res.json({ msg: "success!", user: user });
-    })
-    .catch(err => res.json(err));
-};
+// register: (req, res) => {
+//   const user = new User(req.body);
+//   user
+//     .save()
+//     .then(() => {
+//         res.json({ msg: "success!", user: user });
+//     })
+//     .catch(err => res.json(err));
+// };
 

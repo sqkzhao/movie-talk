@@ -7,7 +7,6 @@ import MovieDetailsOverview from './components/MovieDetailsOverview';
 import MovieDetailsVideos from './components/MovieDetailsVideos';
 import MovieDetailsInfo from './components/MovieDetailsInfo';
 import MovieDetailsReview from './components/MovieDetailsReview';
-// import ChatBox from './components/ChatBox'
 import Chat from './components/Chat'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -46,7 +45,6 @@ function App() {
 
       <Router>
         <Home path='/' />
-        {/* <ChatBox path='/chat' /> */}
         <Search path='/searchmovies' />
         <SearchTheaters path='/theaters' />
         <MovieDetails path='/movies/:id/'>

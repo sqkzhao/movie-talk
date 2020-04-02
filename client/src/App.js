@@ -20,11 +20,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Row, Col, Form } from 'react-bootstrap'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState("kay")
+  const [currentUser, setCurrentUser] = useState("Kay")  // to store login user id
+  const [currentUID, setCurrentUID] = useState("5e7e3cb3b1ec3b509c2b10b2")  // CURRENT USER ID
   const [recentlyViewed, setRecentlyViewed] = useState([])
 
   return (
-    <div style={{background:"rgb(255,193,7)"}}>
+    <div style={{background: "#ffc107"}}>
 
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand><Link to="/"><span className="text-white"><i className="fas fa-film"></i><strong> MOVIE TALK!</strong></span></Link></Navbar.Brand>
@@ -57,7 +58,7 @@ function App() {
         <Home path='/' />
         <Search path='/searchmovies' />
         <SearchTheaters path='/theaters' />
-        <MovieDetails path='/movies/:id/' recentlyViewed={recentlyViewed} setRecentlyViewed={setRecentlyViewed}>
+        <MovieDetails path='/movies/:id/' currentUser={currentUser} recentlyViewed={recentlyViewed} setRecentlyViewed={setRecentlyViewed}>
           <MovieDetailsOverview path='overview' />
           <MovieDetailsVideos path='videos' />
           <MovieDetailsInfo path='info' />

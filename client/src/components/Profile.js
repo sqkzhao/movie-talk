@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'
 
 const Profile = (props) => {
     const { currentUser, setCurrentUser, recentlyViewed } = props
 
+    useEffect(() => {
+        // axios
+    }, [])
+    
     return (
         <Container className="bg-light py-3 mt-5">
-            <h2>Hi!</h2>
+            <h2>Hi! {currentUser}</h2>
             <Row className="my-5">
                 <Col>
                     <h3>Recently Viewed</h3>

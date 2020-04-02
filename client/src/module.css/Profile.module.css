@@ -1,0 +1,10 @@
+
+#closeIcon {
+    position: absolute;
+    color: #f0ad4e;
+    top: 0;
+    left: 0;
+    font-size: 25px;
+    padding: 3px;
+    text-shadow: 2px 2px #fff;
+}

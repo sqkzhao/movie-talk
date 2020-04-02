@@ -19,7 +19,6 @@ const MovieDetailsOverview = (props) => {
                 setMovie(res.data)
                 setCast(res.data.credits.cast)
                 setDirector(res.data.credits.crew[0])
-                console.log(res.data.credits.cast)
             })
             .catch(err => console.log(err))
         // MOVIE TRAILERS

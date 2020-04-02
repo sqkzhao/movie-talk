@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, navigate } from '@reach/router'
-import { ProgressBar, Tooltip, OverlayTrigger } from 'react-bootstrap'
+import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap'
 import { AppBar, Tabs, Tab } from '@material-ui/core'
 import styles from '../module.css/MovieDetails.module.css'
 
 const MovieDetails = (props) => {
-    const { id, currentUser, recentlyViewed, setRecentlyViewed } = props
+    const { id, currentUser, setCurrentUser, recentlyViewed, setRecentlyViewed } = props
     const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [movie, setMovie] = useState({})
     const [genres, setGenres] = useState([])
     const [hashtag, setHashtag] = useState([])
     const [runtime, setRuntime] = useState('')
     const [year, setYear] = useState(0)
+    const [show, setShow] = useState(false)
+    const [notification, setNotification] = useState(true)
 
     useEffect(() => {
         // MOVIE INFO
@@ -39,9 +41,46 @@ const MovieDetails = (props) => {
 
     const AddFavorites = (e) => {
         e.preventDefault()
-        console.log("clicked")
-        // axios post favoirte to list
-        // axios.post('')
+        if(currentUser == null) {
+            alert("Please login to add favorites.")
+            navigate('/sign_in')
+        } else {
+            currentUser.favorites.push({
+                id: movie.id,
+                url: movie.poster_path
+            })
+            // add movie to favorite list
+            axios.put('http://localhost:8000/users/' + currentUser._id, {
+                ...currentUser,
+                favorites: currentUser.favorites
+            })
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+            setNotification("Added to your favorites")
+            setShow(true)
+        }
+    }
+
+    const AddToWatchlist = (e) => {
+        e.preventDefault()
+        if(currentUser == null) {
+            alert("Please login to add watchlist.")
+            navigate('/sign_in')
+        } else {
+            currentUser.watchlist.push({
+                id: movie.id,
+                url: movie.poster_path
+            })
+            // add movie to favorite list
+            axios.put('http://localhost:8000/users/' + currentUser._id, {
+                ...currentUser,
+                watchlist: currentUser.watchlist
+            })
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+            setNotification("Added to your watchlist.")
+            setShow(true)
+        }
     }
 
     return (
@@ -83,14 +122,12 @@ const MovieDetails = (props) => {
                                             <div className={styles.tooltip}>Add to Favorites</div>
                                         </Tooltip>
                                     }>
-                                        {/* <Link to='/'> */}
-                                            <i 
-                                                onClick = {AddFavorites}
-                                                className="far fa-grin-hearts" 
-                                                data-toggle="tooltip" data-placement="bottom" title="Favorite" 
-                                                id={styles.iconStyle}
-                                            ></i>
-                                        {/* </Link> */}
+                                        <i 
+                                            onClick = {AddFavorites}
+                                            className="far fa-grin-hearts" 
+                                            data-toggle="tooltip" data-placement="bottom"
+                                            id={styles.iconStyle}
+                                        ></i>
                                     </OverlayTrigger>
 
                                     {/* WATCHLIST */}
@@ -99,7 +136,12 @@ const MovieDetails = (props) => {
                                             <div className={styles.tooltip}>Add to Watchlist</div>
                                         </Tooltip>
                                     }>
-                                        <Link to='/'><i className="far fa-list-alt" data-toggle="tooltip" data-placement="bottom" title="watchlist" id={styles.iconStyle}></i></Link>
+                                        <i 
+                                            onClick = {AddToWatchlist}
+                                            className="far fa-list-alt" 
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            id={styles.iconStyle}
+                                        ></i>
                                     </OverlayTrigger>
 
                                     {/* THEATER */}
@@ -109,7 +151,7 @@ const MovieDetails = (props) => {
                                         </Tooltip>
                                     }>
                                         <Link to='./theaters'>
-                                            <i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" title="Map" id={styles.iconStyle}></i>
+                                            <i className="fas fa-map-marked-alt" data-toggle="tooltip" data-placement="bottom" id={styles.iconStyle}></i>
                                         </Link>
                                     </OverlayTrigger>
                                 </div>
@@ -125,6 +167,15 @@ const MovieDetails = (props) => {
                         </div>
                     </div>
                 </div>
+                {/* NOTIFICATION */}
+                <Toast show={show} onClose={() => setShow(false)} delay={2000} autohide style={{ position: 'absolute', top: '5px', right: '5px', color: '#000' }}>
+                    <Toast.Header>
+                    <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+                    <strong className="pr-5">Notification</strong>
+                    <small>just now</small>
+                    </Toast.Header>
+                    <Toast.Body className="pl-3">{notification}</Toast.Body>
+                </Toast>
             </div>
             {/* MOVIE DETAILS NAVIGATION */}
             <div> 

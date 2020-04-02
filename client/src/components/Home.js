@@ -41,15 +41,15 @@ const Home = (props) => {
     return(
         <div className="pb-5">
             {/* Poster Display for upcoming movies */}
-            <div style={{width:'800px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif', padding:'0rem 0rem 5rem 0rem'}}>
-                <h1>Upcoming</h1>
+            <div style={{width:'75%', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif', padding:'0rem 0rem 5rem 0rem'}}>
+                <h1 className="mt-5">Upcoming</h1>
                 <Carousel>
                     {upcoming.map((movie,i) =>(
                         <Carousel.Item key={i}>
                             <Link to={'/movies/'+ movie.id +'/overview'}>
                                 <img
                                 className="d-block w-100"
-                                src={"http://image.tmdb.org/t/p/w780" + movie.backdrop_path}
+                                src={"http://image.tmdb.org/t/p/original" + movie.backdrop_path}
                                 alt=""/>
                             </Link>
                             <Carousel.Caption>
@@ -62,7 +62,7 @@ const Home = (props) => {
                 </Carousel>
             </div>
 
-            <div style={{ width:'800px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
+            <div style={{ width:'60%', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                 <h1>Now Playing</h1>
                 <Carousel>
                     {nowPlaying.map((movie,i) =>(

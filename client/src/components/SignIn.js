@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { navigate } from '@reach/router'
+import { Link, navigate } from '@reach/router'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -17,13 +15,8 @@ import Container from '@material-ui/core/Container';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit">
-       Movie Talk
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+    <Typography color="textSecondary" align="center">
+      Copyright © Movie Talk 2020
     </Typography>
   );
 }
@@ -40,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -52,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const classes = useStyles();
   // pass currentuser from the App.js
-  const { currentUser, setCurrentUser } = props
-  const [username, setUsername] = useState('')
+  const { setCurrentUser } = props
 
   const loginHandler = (e) => {
     e.preventDefault()
@@ -82,7 +74,7 @@ export default function SignIn(props) {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setCurrentUser(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -108,18 +100,9 @@ export default function SignIn(props) {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
+          <Link to='/sign_up' variant="body2">
+            Don't have an account? Sign Up
+          </Link>
         </form>
       </div>
       <Box mt={8}>

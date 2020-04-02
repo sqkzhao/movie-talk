@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {navigate} from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -18,13 +17,8 @@ import Container from '@material-ui/core/Container';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit">
-        Movie Talk
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+    <Typography color="textSecondary" align="center">
+      Copyright © Movie Talk 2020
     </Typography>
   );
 }
@@ -41,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -70,7 +64,7 @@ export default function SignUp() {
     e.preventDefault()
     axios.post("http://localhost:8000/users", formState)
         .then(res => {
-            console.log(res)
+            // console.log(res)
             navigate("/sign_in")
         })
         .catch(err => {
@@ -81,10 +75,6 @@ export default function SignUp() {
             }
             setErrors(errorArr);
         })}
-
-
-  
-
 
   return (
     <Container component="main" maxWidth="xs" style={{background:'white'}}>
@@ -148,12 +138,12 @@ export default function SignUp() {
                 onChange={(e) => changeHandler(e)}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button
             type="submit"
@@ -164,13 +154,9 @@ export default function SignUp() {
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/sign_in" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
+          <Link to="/sign_in" variant="body2">
+            Already have an account? Sign in
+          </Link>
         </form>
       </div>
       <Box mt={5}>

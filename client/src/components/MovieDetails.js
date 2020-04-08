@@ -83,6 +83,10 @@ const MovieDetails = (props) => {
         }
     }
 
+    const searchKeyword = (keyword) => {
+        navigate('/searchKeyword/' + keyword)
+    }
+
     return (
         <div className="bg-warning text-white">
             <div className="col" id={styles.bgContainer}>
@@ -159,7 +163,7 @@ const MovieDetails = (props) => {
                                 <div>
                                     {hashtag.map((keyword, i) => {
                                         if(i < 9) {
-                                            return <button key={i} type="button" class="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
+                                            return <button key={i} onClick={e => searchKeyword(keyword.id)} type="button" class="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
                                         }
                                     })}
                                 </div>

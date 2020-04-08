@@ -8,7 +8,7 @@ const SearchMovieResult = (props) => {
     const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
 
     useEffect(() => {
-        axios.get('https://api.themoviedb.org/3/search/movie?api_key=' + API_KEY + '&language=en-US&query=' + keyword + '&page=1&include_adult=false')
+        axios.get('https://api.themoviedb.org/3/keyword/' + keyword + '/movies?api_key=' + API_KEY + '&language=en-US&include_adult=false')
             .then(res => {
                 setResult(res.data.results)
             })

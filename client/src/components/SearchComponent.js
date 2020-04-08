@@ -1,3 +1,4 @@
+// SEARCH MAP
 import React, { useState } from 'react'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import styles from '../module.css/Map.module.css'

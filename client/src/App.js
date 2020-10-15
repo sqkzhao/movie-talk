@@ -10,6 +10,9 @@ import MovieDetailsInfo from './components/MovieDetailsInfo';
 import MovieDetailsReview from './components/MovieDetailsReview';
 import Chat from './components/Chat';
 import Search from './components/Search';
+import SearchMovieBar from './components/SearchMovieBar'
+import SearchMovieResult from './components/SearchMovieResult'
+import SearchKeyword from './components/SearchKeyword'
 import Profile from './components/Profile';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
@@ -18,7 +21,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Row, Col, Form } from 'react-bootstrap';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)  // CURRENT LOGIN USER
@@ -34,6 +36,8 @@ function App() {
       })
       .catch(err => console.log(err))
   }, [])
+  
+  /////////////////////////////////////
 
   return (
     <div style={{background: "#ffc107"}}>
@@ -45,10 +49,9 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link><Link to="/"><span className="text-light">Home</span></Link></Nav.Link>
             <NavDropdown title="Movies" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="/searchmovies#popular">Popular</NavDropdown.Item>
-              <NavDropdown.Item href="/searchmovies#upcoming">Upcoming</NavDropdown.Item>
-              <NavDropdown.Item href="/searchmovies#toprated">Top Rated</NavDropdown.Item>
-              <NavDropdown.Divider />
+              <NavDropdown.Item><Link to='/searchmovies#popular'>Popular</Link></NavDropdown.Item>
+              <NavDropdown.Item><Link to='/searchmovies#upcoming'>Upcoming</Link></NavDropdown.Item>
+              <NavDropdown.Item><Link to='/searchmovies#toprated'>Top Rated</Link></NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
@@ -59,15 +62,13 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
 
-      <Row>
-        <Col>
-          <Form.Control type="text" placeholder="Search movies.." rounded-0 />
-        </Col>
-      </Row>
+      <SearchMovieBar />
 
       <Router>
         <Home path='/' />
         <Search path='/searchmovies' />
+        <SearchMovieResult path='/searchmovies/:keyword' />
+        <SearchKeyword path='/searchKeyword/:keyword' />
         <SearchTheaters path='/theaters' />
         <MovieDetails path='/movies/:id/' currentUser={currentUser} setCurrentUser={setCurrentUser} recentlyViewed={recentlyViewed} setRecentlyViewed={setRecentlyViewed}>
           <MovieDetailsOverview path='overview' />

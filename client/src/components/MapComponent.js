@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 
 const MapComponent = (props) => {

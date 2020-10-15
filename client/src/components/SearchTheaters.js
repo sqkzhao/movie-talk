@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withScriptjs, withGoogleMap } from 'react-google-maps'
 import MapComponent from './MapComponent'
 import SearchComponent from './SearchComponent'
@@ -6,7 +6,6 @@ import styles from '../module.css/Map.module.css'
 
 
 const SearchTheaters = (props) => {
-    const GOOGLE_MAP_API_KEY = "AIzaSyCx3qnDt6ImRtWWYfUUoxBoj-8XFNMXSUo"
     const [theater, setTheater] = useState('')
     const [coordinates, setCoordinates] = useState({ lat: 37.8044, lng: -122.2712 })
     const [locations, setlocations] = useState([])
@@ -17,7 +16,7 @@ const SearchTheaters = (props) => {
         <div className="container">
             <div className={styles.mapContainer}>
                 <MapWrapper 
-                    googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${GOOGLE_MAP_API_KEY}`} 
+                    googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`} 
                     loadingElement={<div style={{ height: "100%" }} />}
                     containerElement={<div style={{ height: "100%" }} />}
                     mapElement={<div style={{ height: "100%" }} />}

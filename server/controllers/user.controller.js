@@ -1,4 +1,7 @@
 const {User} = require("../models/user.model");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt")
+const {secretKey} = require("../config/jwt.config")
 
 module.exports.index = (req, res) => {
     res.json({ msg: "hello" })
@@ -9,11 +12,44 @@ module.exports.getAllUsers = (req,res) => {
         .then(allUsers => res.json(allUsers))
         .catch(err => res.json(err))
 }
-
-module.exports.createUser = (req,res) => {
-    User.create(req.body)
-        .then(newUser => res.json(newUser))
+// REGISTRATION
+module.exports.register = (req,res) => {
+    const user = new User(req.body)
+    user
+        .save()
+        .then(() => {
+            res.json({msg: "Register success", user: user})
+        })
         .catch(err => res.status(400).json(err))
+}
+// LOGIN
+module.exports.login = (req, res) => {
+    User.findOne({email: req.body.email})
+        .then(user => {
+            if(user === null){
+                res.json({msg: "User not found"})
+            }
+            else{
+                bcrypt
+                    .compare(req.body.password, user.password)
+                        .then(isPasswordValid => {
+                            if(isPasswordValid){
+                                const newJWT = jwt.sign({_id: user._id}, secretKey)
+                                res.cookie("usertoken", newJWT, {httpOnly: true})
+                                    .json({msg: "Login success"})
+                            }
+                            else{
+                                res.json({msg: "Password not valid"})
+                            }
+                        })
+                        .catch(err => res.json({msg: "Password not valid"}))
+            }
+        })
+        .catch(err => res.json(err))
+}
+// LOGOUT
+module.exports.logout = (req, res) => {
+    res.clearCookie("usertoken")
 }
 
 module.exports.getOneUser = (req,res) => {
@@ -36,22 +72,3 @@ module.exports.editUser = (req, res) => {
         .then(editedUser => res.json(editedUser))
         .catch(err => res.json(err))
 }
-
-
-
-
-
-
-
-
-
-// register: (req, res) => {
-//   const user = new User(req.body);
-//   user
-//     .save()
-//     .then(() => {
-//         res.json({ msg: "success!", user: user });
-//     })
-//     .catch(err => res.json(err));
-// };
-

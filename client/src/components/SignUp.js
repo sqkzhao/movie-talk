@@ -5,11 +5,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -46,12 +43,13 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
 
-//   Below codes are added orm form submission
+// ------------------------------------------------ //
   const [formState, setFormState] = useState({
       firstName:'',
       LastName:'',
       email:'',
-      password:''
+      password:'',
+      confirmPassword: '',
   })
   const [errors, setErrors] = useState([])
   const changeHandler = e => {
@@ -62,16 +60,18 @@ export default function SignUp() {
   }
   const submitHandler = e => {
     e.preventDefault()
-    axios.post("http://localhost:8000/users", formState)
+    axios.post("http://localhost:8000/users", formState, {withCredentials:true})
         .then(res => {
-            // console.log(res)
+            console.log(res)
             navigate("/sign_in")
         })
         .catch(err => {
-            const errorResponse = err.response.data.errors;
+            console.log("errror......")
+            const {errors} = err.response.data;
             const errorArr = [];
-            for(const key of Object.keys(errorResponse)) {
-                errorArr.push(errorResponse[key].message)
+            console.log(errors);
+            for(const key of Object.keys(errors)) {
+                errorArr.push(errors[key].message)
             }
             setErrors(errorArr);
         })}
@@ -138,12 +138,18 @@ export default function SignUp() {
                 onChange={(e) => changeHandler(e)}
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                id="confirmPassword"
+                onChange={(e) => changeHandler(e)}
               />
-            </Grid> */}
+            </Grid>
           </Grid>
           <Button
             type="submit"

@@ -7,7 +7,6 @@ import styles from '../module.css/MovieDetails.module.css'
 
 const MovieDetails = (props) => {
     const { id, currentUser, setCurrentUser, recentlyViewed, setRecentlyViewed } = props
-    const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [movie, setMovie] = useState({})
     const [genres, setGenres] = useState([])
     const [hashtag, setHashtag] = useState([])
@@ -15,10 +14,10 @@ const MovieDetails = (props) => {
     const [year, setYear] = useState(0)
     const [show, setShow] = useState(false)
     const [notification, setNotification] = useState(true)
-
+    
     useEffect(() => {
         // MOVIE INFO
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+API_KEY+'&language=en-US')
+        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US')
             .then(res => {
                 setMovie(res.data)
                 setGenres(res.data.genres)
@@ -32,7 +31,7 @@ const MovieDetails = (props) => {
             })
             .catch(err => console.log(err))
         // HASHTAG/KEYWORDS
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'/keywords?api_key='+API_KEY+'&language=en-US&append_to_response=credits')
+        axios.get('https://api.themoviedb.org/3/movie/'+id+'/keywords?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
             .then(res => {
                 setHashtag(res.data.keywords)
             })
@@ -81,6 +80,10 @@ const MovieDetails = (props) => {
             setNotification("Added to your watchlist.")
             setShow(true)
         }
+    }
+
+    const searchKeyword = (keyword) => {
+        navigate('/searchKeyword/' + keyword)
     }
 
     return (
@@ -159,7 +162,7 @@ const MovieDetails = (props) => {
                                 <div>
                                     {hashtag.map((keyword, i) => {
                                         if(i < 9) {
-                                            return <button key={i} type="button" class="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
+                                            return <button key={i} onClick={e => searchKeyword(keyword.id)} type="button" class="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
                                         }
                                     })}
                                 </div>

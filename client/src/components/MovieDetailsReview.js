@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const MovieDetailsReview = (props) => {
-    const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const { id } = props
     const [reviews, setReviews] = useState([])
     const [readMoreLess, setReadMoreLess] = useState("Read More")
 
     useEffect(() => {
-        axios.get("https://api.themoviedb.org/3/movie/" +id+ "/reviews?api_key=" +API_KEY+ "&language=en-US&page=1")
+        axios.get("https://api.themoviedb.org/3/movie/" +id+ "/reviews?api_key=" +`${process.env.REACT_APP_API_KEY}`+ "&language=en-US&page=1")
             .then(res => {
                 setReviews(res.data.results)
                 console.log(res.data.results)

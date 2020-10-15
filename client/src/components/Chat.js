@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from '@reach/router'
 import io from 'socket.io-client'
 import GetStarted from './GetStarted'
 import styles from '../module.css/Chat.module.css'

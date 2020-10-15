@@ -3,12 +3,11 @@ import axios from 'axios'
 import { Backdrop } from '@material-ui/core'
 
 const MovieDetailsVideos = (props) => {
-    const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const { id } = props
     const [trailers, setTrailers] = useState([])
 
     useEffect(() => {
-        axios.get('https://api.themoviedb.org/3/movie/' + id + '/videos?api_key='+API_KEY+'&language=en-US')
+        axios.get('https://api.themoviedb.org/3/movie/' + id + '/videos?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US')
             .then(res => {
                 setTrailers(res.data.results)
             })

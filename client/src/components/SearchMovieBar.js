@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Form } from 'react-bootstrap';
 import { navigate } from '@reach/router';
-import { set } from 'mongoose';
 
 const SearchMovieBar = (props) => {
     const [search, setSearch] = useState("")

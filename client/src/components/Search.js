@@ -4,25 +4,24 @@ import axios from 'axios'
 import SearchMovieSection from './SearchMovieSection'
 
 const Search = (props) => {
-    const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [popular, setPopular] = useState([])
     const [upcoming, setUpcoming] = useState([])
     const [topRated, setTopRated] = useState([])
     
     useEffect(() => {
-        axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' +API_KEY+ '&language=en-US&page=1')
+        axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' +`${process.env.REACT_APP_API_KEY}`+ '&language=en-US&page=1')
             .then(res => {
                 setPopular(res.data.results)   
             })
             .catch(err => console.log(err))
 
-        axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=' +API_KEY+ '&language=en-US&page=1')
+        axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=' +`${process.env.REACT_APP_API_KEY}`+ '&language=en-US&page=1')
             .then(res => {
                 setUpcoming(res.data.results)   
             })
             .catch(err => console.log(err))
 
-        axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=' +API_KEY+ '&language=en-US&page=1')
+        axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=' +`${process.env.REACT_APP_API_KEY}`+ '&language=en-US&page=1')
             .then(res => {
                 setTopRated(res.data.results)   
             })

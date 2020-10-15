@@ -4,7 +4,6 @@ import styles from '../module.css/MovieDetails.module.css'
 
 const MovidDetailsInfo = (props) => {
     const { id } = props
-    const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [movie, setMovie] = useState({})
     const [countries, setCountries] = useState([])
     const [languages, setLanguages] = useState([])
@@ -14,7 +13,7 @@ const MovidDetailsInfo = (props) => {
 
     useEffect(() => {
         // MOVIE INFO
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+API_KEY+'&language=en-US&append_to_response=credits')
+        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
             .then(res => {
                 setMovie(res.data)
                 setCast(res.data.credits.cast)

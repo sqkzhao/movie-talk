@@ -6,7 +6,6 @@ import styles from '../module.css/MovieDetails.module.css'
 
 const MovieDetailsOverview = (props) => {
     const { id } = props
-    const API_KEY = "fe849d6987c0000e3dc1352ccf5118fd"
     const [movie, setMovie] = useState({})
     const [trailers, setTrailers] = useState([])
     const [cast, setCast] = useState([])
@@ -14,7 +13,7 @@ const MovieDetailsOverview = (props) => {
 
     useEffect(() => {
         // MOVIE INFO
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+API_KEY+'&language=en-US&append_to_response=credits')
+        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
             .then(res => {
                 setMovie(res.data)
                 setCast(res.data.credits.cast)
@@ -22,7 +21,7 @@ const MovieDetailsOverview = (props) => {
             })
             .catch(err => console.log(err))
         // MOVIE TRAILERS
-        axios.get('https://api.themoviedb.org/3/movie/' + id + '/videos?api_key='+API_KEY+'&language=en-US')
+        axios.get('https://api.themoviedb.org/3/movie/' + id + '/videos?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US')
             .then(res => {
                 setTrailers(res.data.results)
             })

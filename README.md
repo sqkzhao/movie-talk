@@ -1,6 +1,5 @@
 # movie-talk
 
-# run the following: 
 
 ## SERVER:
 ### npm init -y

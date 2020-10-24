@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+
 import styles from '../module.css/MovieDetails.module.css'
 
 const MovidDetailsInfo = (props) => {
@@ -30,7 +31,9 @@ const MovidDetailsInfo = (props) => {
             {/* DETAILS */}
             <h2>Details</h2>
             <div className="px-5 mt-3">
-                <p><strong>Official site: </strong>{movie.homepage}</p>
+                <p><strong>Official site: </strong>
+                    <a href={movie.homepage} target="_blank">{movie.homepage}</a>
+                </p>
                 <p>
                     <strong>Country: </strong>
                     {countries.map((country, i) => {

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, navigate } from '@reach/router'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,7 +18,6 @@ function Copyright() {
     </Typography>
   );
 }
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -40,56 +38,106 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// SIGNIN -----------------------------
+// ----------------------------- SIGNIN ----------------------------- //
 export default function SignIn(props) {
   const classes = useStyles();
-  // pass currentuser from the App.js
-  const { setCurrentUser } = props
+
+  const { setCurrentUserId } = props;
+  const [loginState, setLoginState] = useState({
+    email:"",
+    password:""
+  })
+  const [errorState, setErrorState] = useState("")
 
   const loginHandler = (e) => {
     e.preventDefault()
-    // axios GET ONE USER??
-    navigate('/')
+    axios.post("http://localhost:8000/login", loginState, {withCredentials:true})
+      .then(res => {
+        if(res.data.msg === "success!") {
+          setCurrentUserId(res.data.id);
+          navigate('/')
+        } else {
+          setErrorState(res.data.msg)
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
+  const changeHandler = e => {
+    setLoginState({
+        ...loginState,
+        [e.target.name]:e.target.value
+    })
   }
 
   return (
     <Container component="main" maxWidth="xs" style={{background:'white'}}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          {/* <LockOutlinedIcon /> */}
-        </Avatar>
+        <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+
         <form className={classes.form} noValidate onSubmit={loginHandler}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={(e) => setCurrentUser(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
+          {errorState ? 
+          <div>
+            <TextField
+              autoComplete="email"
+              name="email"
+              variant="outlined"
+              required
+              fullWidth
+              error
+              id="email"
+              label="Email"
+              autoFocus
+              onChange={changeHandler}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              error
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              helperText={errorState}
+              onChange={changeHandler}
+            />
+          </div> :
+          <div>
+            <TextField
+                autoComplete="email"
+                name="email"
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                autoFocus
+                onChange={changeHandler}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={changeHandler}
+            />
+          </div>}
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth

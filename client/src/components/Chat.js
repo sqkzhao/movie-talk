@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import io from 'socket.io-client'
-import GetStarted from './GetStarted'
-import styles from '../module.css/Chat.module.css'
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import GetStarted from './GetStarted';
+import styles from '../module.css/Chat.module.css';
 
 const Chat = (props) => {
     const [socket] = useState(() => io(':8000'))

@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
+import ProfileList from './ProfileList';
+
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link, navigate } from '@reach/router';
-import styles from '../module.css/Profile.module.css'
 
 const Profile = (props) => {
-    const { currentUser, setCurrentUser, recentlyViewed } = props
-    const [fav, setFav] = useState(currentUser.favorites)
-    const [watch, setWatch] = useState(currentUser.watchlist)
-    const [reviews, setReviews] = useState(currentUser.reviews)
+    const { currentUser, setCurrentUser, setCurrentUserId, recentlyViewed } = props;
+    const [fav, setFav] = useState([]);
+    const [watch, setWatch] = useState([]);
+    const [reviews, setReviews] = useState([]);
 
+    useEffect(() => {
+        if(currentUser === null) {
+            alert("Please login to access profile.")
+            navigate('/');
+        } else {
+            setFav(currentUser.favorites);
+            setWatch(currentUser.watchlist);
+        }
+    }, [])
+    
     const ClickPoster = (e) => {
         navigate('/movies/' + e.target.id + '/overview')
     }
     
     const DeleteAccount = (e) => {
-        axios.delete('http://localhost:8000/users/' + currentUser._id)
+        const deleteAccount = window.confirm("Do you want to delete your account?")
+        if(deleteAccount) {
+            axios.delete('http://localhost:8000/users/' + currentUser._id)
             .then(res => {
-                alert("Account deleted!")
-                navigate('/')
+                navigate('/');
+                setCurrentUser(null);
+                setCurrentUserId("");
             })
             .catch(err => console.log(err))
-    }
-
-    //////////////////WORKING ON THIS EARLIER - cannot update fav/setFav
-    const RemoveFavorite = (e, movieId) => {
-        const temp = fav.filter(movie => movie.id !== movieId)
-        setFav(prev => { 
-            return temp
-        })
-        axios.put('http://localhost:8000/users/' + currentUser._id, {
-            ...currentUser,
-            favorites: fav
-        })
-            .then(res => console.log(res.data.favorites))
-            .catch(err => console.log(err))
+        }
     }
 
     return (
@@ -55,32 +56,11 @@ const Profile = (props) => {
 }                       )}
                     </div>
                     <h3>My Favorites</h3>
-                    <div className="mb-3">
-                        {fav.length == 0 && <p>You haven't added any favorite movies.</p>}
-                        {fav.length > 0 && 
-                            fav.map((item, i) => {
-                                if(i <= 12) {
-                                    return (
-                                        <div style={{position: 'relative', display: 'inline-block'}}>
-                                            <img key={i} onClick={ClickPoster} src={"http://image.tmdb.org/t/p/w92/"+ item.url} id={item.id} className="mr-3 mb-3" />
-                                            <i className="fas fa-times" onClick={e => RemoveFavorite(e, item.id)} id={styles.closeIcon}></i>
-                                        </div>
-                                    )
-                                }
-                            })
-                        }
-                    </div>
+                    <ProfileList listState={fav} setListState={setFav} currentUser={currentUser} type="favorites" />
+
                     <h3>My Watchlist</h3>
-                    <div className="mb-3">
-                        {watch.length == 0 && <p>You don't have any movie in your watchlist.</p>}
-                        {watch.length > 0 && 
-                            watch.map((item, i) => {
-                                if(i <= 12) {
-                                    return <img key={i} onClick={ClickPoster} src={"http://image.tmdb.org/t/p/w92/"+ item.url} id={item.id} className="mr-3 mb-3" />
-                                }
-                            })
-                        }
-                    </div>
+                    <ProfileList listState={watch} setListState={setWatch} currentUser={currentUser} type="watch list" />
+
                     <h3>My Reviews</h3>
                     <div className="mb-5">
                         {reviews.length == 0 && <Link to='/searchmovies'>Write a reivew.</Link>}
@@ -89,7 +69,7 @@ const Profile = (props) => {
                 <Col sm={4}>
                     <h4>My Friend List</h4>
                     <div>
-                        list of friends...
+                        coming soon..
                     </div>
                 </Col>
             </Row>

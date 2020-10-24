@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Link } from '@reach/router'
-import { Tooltip, OverlayTrigger } from 'react-bootstrap'
-import styles from '../module.css/MovieDetails.module.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+import { Link } from '@reach/router';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import styles from '../module.css/MovieDetails.module.css';
 
 const MovieDetailsOverview = (props) => {
     const { id } = props
@@ -48,11 +49,12 @@ const MovieDetailsOverview = (props) => {
             {/* CAST AND CREW */}
             <h3 className="mt-3">Cast and Crew</h3>
             <div className="row mt-3 px-5 pb-4 text-center">
+                {director ?
                 <div className={styles.castBox}>
                     <img src={"http://image.tmdb.org/t/p/w185/"+ director.profile_path} className={styles.cast}/><br/>
                     <span className={styles.castName}>{director.name}</span><br/>
                     <strong className={styles.castName}>Director</strong>
-                </div>
+                </div> : null}
                 {cast.map((actor, i) => {
                     if(i < 5) {
                         return (

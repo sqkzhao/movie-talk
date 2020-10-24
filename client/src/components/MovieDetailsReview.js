@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import PageNavigation from './PageNavigation';
+
 const MovieDetailsReview = (props) => {
     const { id } = props
     const [reviews, setReviews] = useState([])
-    const [readMoreLess, setReadMoreLess] = useState("Read More")
+    const [readMoreLess, setReadMoreLess] = useState("Read More")   // collapse
+    const [pages, setPages] = useState(0);
+    const [goToPage, setGoToPage] = useState(1);
 
     useEffect(() => {
-        axios.get("https://api.themoviedb.org/3/movie/" +id+ "/reviews?api_key=" +`${process.env.REACT_APP_API_KEY}`+ "&language=en-US&page=1")
+        axios.get("https://api.themoviedb.org/3/movie/" +id+ "/reviews?api_key=" +`${process.env.REACT_APP_API_KEY}`+ "&language=en-US&page=" + goToPage)
             .then(res => {
                 setReviews(res.data.results)
-                console.log(res.data.results)
+                setPages(res.data.total_pages);
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [goToPage])
 
     const moreLessHandler = (e) => {
         if(readMoreLess === "Read More") {
@@ -34,31 +38,12 @@ const MovieDetailsReview = (props) => {
                 <input type="submit" value="Submit Review" className="btn btn-sm btn-warning col mb-5" /> 
             </form>
 
-            <nav aria-label="Page navigation">
-                <ul className="pagination mx-auto col-2">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li className="page-item"><a class="page-link" href="#">1</a></li>
-                    <li className="page-item"><a class="page-link" href="#">2</a></li>
-                    <li className="page-item"><a class="page-link" href="#">3</a></li>
-                    <li className="page-item">
-                    <a className="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                    </li>
-                </ul>
-            </nav>
-
-
             {reviews.map((review, i) => {
-                const last_space_index = review.content.substring(0, 451).lastIndexOf(" ")
+                const last_space_index = review.content.substring(0, 451).lastIndexOf(" ");
                 return (
                     <div key={i} className="card m-3">
                         <div className="card-body">
-                            <p>
+                            <p> 
                                 {review.content.substring(0, last_space_index)}
                                 <span className="collapse" id={"collapse"+i}>
                                     {review.content.slice(last_space_index)}    
@@ -72,6 +57,8 @@ const MovieDetailsReview = (props) => {
                     </div>
                 )
             })}
+
+            {pages > 1 ? <PageNavigation pages={pages} goToPage={goToPage} setGoToPage={setGoToPage} /> : null}
 
         </div>
     )

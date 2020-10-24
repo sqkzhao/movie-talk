@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link, navigate } from '@reach/router'
-import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap'
-import { AppBar, Tabs, Tab } from '@material-ui/core'
-import styles from '../module.css/MovieDetails.module.css'
+import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap';
+import { AppBar, Tabs, Tab } from '@material-ui/core';
+
+import styles from '../module.css/MovieDetails.module.css';
 
 const MovieDetails = (props) => {
-    const { id, currentUser, setCurrentUser, recentlyViewed, setRecentlyViewed } = props
-    const [movie, setMovie] = useState({})
-    const [genres, setGenres] = useState([])
-    const [hashtag, setHashtag] = useState([])
-    const [runtime, setRuntime] = useState('')
-    const [year, setYear] = useState(0)
-    const [show, setShow] = useState(false)
-    const [notification, setNotification] = useState(true)
+    const { id, currentUser, setCurrentUser, recentlyViewed, setRecentlyViewed } = props;
+    const [movie, setMovie] = useState({});
+    const [genres, setGenres] = useState([]);
+    const [hashtag, setHashtag] = useState([]);
+    const [runtime, setRuntime] = useState('');
+    const [year, setYear] = useState(0);
+    const [show, setShow] = useState(false);
+    const [notification, setNotification] = useState(true);
     
     useEffect(() => {
         // MOVIE INFO
@@ -26,8 +27,16 @@ const MovieDetails = (props) => {
                 setRuntime(`${hr}h ${min}min`)
                 setYear(res.data.release_date.slice(0, 4))
                 // add the movie to the recently viewed list
-                recentlyViewed.push(res.data)
-                setRecentlyViewed(recentlyViewed)
+                let isDup = false;
+                for(let x of recentlyViewed) {
+                    if(x.id === res.data.id) {
+                        isDup = true;
+                    }
+                }
+                if(!isDup) {
+                    recentlyViewed.push(res.data)
+                    setRecentlyViewed(recentlyViewed)
+                }
             })
             .catch(err => console.log(err))
         // HASHTAG/KEYWORDS
@@ -40,18 +49,22 @@ const MovieDetails = (props) => {
 
     const AddFavorites = (e) => {
         e.preventDefault()
-        if(currentUser == null) {
+        if(currentUser === null) {
             alert("Please login to add favorites.")
             navigate('/sign_in')
         } else {
-            currentUser.favorites.push({
-                id: movie.id,
-                url: movie.poster_path
-            })
+            const fav = currentUser.favorites;
+            let isDup = false;
+            for(let x of fav) {
+                if(x.movieid === movie.id) {
+                    isDup = true;
+                }
+            }
+            if(!isDup) fav.push({movieid: movie.id, url: movie.poster_path});
             // add movie to favorite list
             axios.put('http://localhost:8000/users/' + currentUser._id, {
                 ...currentUser,
-                favorites: currentUser.favorites
+                favorites: fav
             })
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
@@ -66,14 +79,18 @@ const MovieDetails = (props) => {
             alert("Please login to add watchlist.")
             navigate('/sign_in')
         } else {
-            currentUser.watchlist.push({
-                id: movie.id,
-                url: movie.poster_path
-            })
+            const watch = currentUser.watchlist;
+            let isDup = false;
+            for(let x of watch) {
+                if(x.movieid === movie.id) {
+                    isDup = true;
+                }
+            }
+            if(!isDup) watch.push({movieid: movie.id, url: movie.poster_path});
             // add movie to favorite list
             axios.put('http://localhost:8000/users/' + currentUser._id, {
                 ...currentUser,
-                watchlist: currentUser.watchlist
+                watchlist: watch
             })
                 .then(res => console.log(res))
                 .catch(err => console.log(err))

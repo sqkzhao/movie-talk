@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, Router } from '@reach/router';
+import { Link, Router, navigate } from '@reach/router';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
+
 import Home from './components/Home';
 import MovieDetails from './components/MovieDetails';
 import SearchTheaters from './components/SearchTheaters';
@@ -17,30 +21,37 @@ import Profile from './components/Profile';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null)  // CURRENT LOGIN USER
-  const [currentUID, setCurrentUID] = useState("5e8659dacd77aa1e69961ff1")  // CURRENT USER ID  ///TEMP////////////////
+  const [currentUser, setCurrentUser] = useState(null)  // CURRENT LOGIN USER 
+  const [currentUserId, setCurrentUserId] = useState("")
   const [recentlyViewed, setRecentlyViewed] = useState([])
 
-  ////////GET - TEMP //////////////////
+  // GET CURRENT USER
   useEffect(() => {
-    axios.get('http://localhost:8000/users/' + currentUID)
+    if(currentUserId != "") {
+      axios.get('http://localhost:8000/users/' + currentUserId, {withCredentials:true})
+        .then(res => {
+          setCurrentUser(res.data)
+        })
+        .catch(err => console.log(err))
+      }
+  }, [currentUserId])
+  
+  const logoutHandler = (e) => {
+    e.preventDefault()
+    setCurrentUser(null)
+    setCurrentUserId("")
+    navigate('/')
+    axios.get('http://localhost:8000/logout')
       .then(res => {
-        console.log(res.data)
-        setCurrentUser(res.data)
+          setRecentlyViewed([])
       })
       .catch(err => console.log(err))
-  }, [])
-  
-  /////////////////////////////////////
+  }
 
   return (
-    <div style={{background: "#ffc107"}}>
+    <div style={{background: "#ffc107", height: "100vh", overflow: "auto", mb: "0"}}>
 
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="sticky-top">
         <Navbar.Brand><Link to="/"><span className="text-white"><i className="fas fa-film"></i><strong> MOVIE TALK!</strong></span></Link></Navbar.Brand>
@@ -48,16 +59,22 @@ function App() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link><Link to="/"><span className="text-light">Home</span></Link></Nav.Link>
-            <NavDropdown title="Movies" id="collasible-nav-dropdown">
+            <NavDropdown title="Movies" id="collasible-nav-dropdown" >
               <NavDropdown.Item><Link to='/searchmovies#popular'>Popular</Link></NavDropdown.Item>
               <NavDropdown.Item><Link to='/searchmovies#upcoming'>Upcoming</Link></NavDropdown.Item>
               <NavDropdown.Item><Link to='/searchmovies#toprated'>Top Rated</Link></NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link><Link to="/profile"><span className="text-light">My Profile</span></Link></Nav.Link>
-            <Nav.Link><Link to="/sign_up"><span className="text-light">Sign Up</span></Link></Nav.Link>
-            <Nav.Link><Link to="/sign_in"><span className="text-light">Sign In</span></Link></Nav.Link> 
+              {currentUserId!="" ? 
+              <>
+                <Nav.Link><Link to="/profile"><i className="far fa-user-circle text-white h4"></i></Link></Nav.Link>
+                <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
+              </> :
+              <>
+                <Nav.Link><Link to="/sign_up"><span className="text-light">Sign Up</span></Link></Nav.Link>
+                <Nav.Link><Link to="/sign_in"><span className="text-light">Sign In</span></Link></Nav.Link>
+              </>}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -77,9 +94,9 @@ function App() {
           <MovieDetailsReview path='reviews' />
           <SearchTheaters path='theaters' />
         </MovieDetails>
-        <Profile path='/profile' currentUser={currentUser} setCurrentUser={setCurrentUser} recentlyViewed={recentlyViewed} />
-        <SignUp path='/sign_up'/>
-        <SignIn path='/sign_in' setCurrentUser={setCurrentUser} />
+        <Profile path='/profile' currentUser={currentUser} setCurrentUser={setCurrentUser} setCurrentUserId={setCurrentUserId} recentlyViewed={recentlyViewed} />
+        <SignUp path='/sign_up' />
+        <SignIn path='/sign_in' setCurrentUserId={setCurrentUserId} />
       </Router>
 
       <Chat />

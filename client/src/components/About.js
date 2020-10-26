@@ -2,11 +2,11 @@ import React from 'react';
 
 const About = () => {
     return(
-        <div className="jumbotron jumbotron-fluid bg-light text-secondary mb-0 mt-5 py-5">
+        <div className="jumbotron jumbotron-fluid bg-light text-secondary mb-0 py-5">
             <div className="container">
                 <h4>About</h4>
                 <div className="row">
-                    <ul className="lead col-10" style={{listStyleType: "none"}}>
+                    <ul className="lead col-10" style={{listStyleType: "none"}} >
                         <li>A full-stack MERN web project</li>
                         <li className="h6">Github: <a href="https://github.com/sqkzhao/movie-talk" rel="noopener noreferrer" target="_blank" className="text-secondary">Here</a></li>
                     </ul>

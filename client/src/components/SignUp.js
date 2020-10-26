@@ -54,7 +54,7 @@ export default function SignUp() {
 
     const submitHandler = e => {
         e.preventDefault()
-        axios.post("http://localhost:8000/users", formState, {withCredentials:true})
+        axios.post("http://localhost:8000/api/users", formState, {withCredentials:true})
             .then(res => {
                 alert("Register successfully!")
                 navigate("/sign_in")

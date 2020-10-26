@@ -12,9 +12,14 @@ const SearchMovieResult = (props) => {
     const typeStr = type.charAt(0).toUpperCase() + type.slice(1)
 
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${id}&page=${goToPage}`)
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${id}&page=${goToPage}&include_adult=false`)
             .then(res => {
-                setResult(res.data.results);
+                setResult(res.data.results)
+                // setResult(res.data.results.sort(
+                //     function(a, b){
+                //         return  b.id - a.id;
+                //     }
+                // ));
                 setPages(res.data.total_pages);
             })
             .catch(err => console.log(err))

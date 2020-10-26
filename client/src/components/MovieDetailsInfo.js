@@ -61,7 +61,9 @@ const MovidDetailsInfo = (props) => {
                         if(i === 0) {
                             return (
                                 <span key={i}>
-                                    {company.logo_path!==null ? <img src={"http://image.tmdb.org/t/p/w92/"+ company.logo_path} className={styles.companyLogo} alt={company.name} /> : <span>{company.name}</span>}
+                                    {company.logo_path!==null ? 
+                                    <img src={"http://image.tmdb.org/t/p/w92/"+ company.logo_path} className={styles.companyLogo} alt={company.name} /> 
+                                    : <span>{company.name}</span>}
                                 </span>
                             )
                         } else {

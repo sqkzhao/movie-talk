@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, navigate } from '@reach/router';
-import MovieDetailsSimilar from './MovieDetailsSimilar';
 
 import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap';
 import { AppBar, Button } from '@material-ui/core';
@@ -19,7 +18,7 @@ const MovieDetails = (props) => {
     
     useEffect(() => {
         // MOVIE INFO
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US')
+        axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`)
             .then(res => {
                 setMovie(res.data)
                 setGenres(res.data.genres)
@@ -42,7 +41,7 @@ const MovieDetails = (props) => {
             .catch(err => console.log(err))
             
         // HASHTAG/KEYWORDS
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'/keywords?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
+        axios.get(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`)
             .then(res => {
                 setHashtag(res.data.keywords)
             })
@@ -125,13 +124,13 @@ const MovieDetails = (props) => {
         <div className="bg-warning text-white">
             <div className="col" id={styles.bgContainer}>
                 {/* BACKGROUND */}
-                <img src={"http://image.tmdb.org/t/p/w342/"+ movie.backdrop_path} id={styles.background} />
+                <img src={"http://image.tmdb.org/t/p/w342/"+ movie.backdrop_path} id={styles.background} alt={movie.title}/>
                 <div>
                     {/* MAIN SECTION */}
                     <div className="container-md mt-5" id={styles.infoContainer}>
                         <div className="row">
                             {/* POSTER */}
-                            <img src={"http://image.tmdb.org/t/p/w342/"+ movie.poster_path} className="image-fluid mx-4" id={styles.poster}/>
+                            <img src={"http://image.tmdb.org/t/p/w342/"+ movie.poster_path} className="image-fluid mx-4" id={styles.poster} alt={movie.title}/>
                             {/* MOVIE INFO */}
                             <div className="col ml-3 pr-5" id={styles.infoBox}>
                                 <h1>{movie.title} <span className="text-secondary h3">({year})</span></h1>
@@ -232,7 +231,6 @@ const MovieDetails = (props) => {
             {/* MOVIE DETAILS COMPONENTS */}
             <div className="container-md bg-white text-dark">
                 {props.children}
-                <MovieDetailsSimilar movieid={id} />
             </div>
         </div>
     )

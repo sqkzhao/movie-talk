@@ -45,7 +45,7 @@ export default function SignIn(props) {
 
   const loginHandler = (e) => {
     e.preventDefault()
-    axios.post("http://localhost:8000/login", loginState, {withCredentials:true})
+    axios.post("http://localhost:8000/api/login", loginState, {withCredentials:true})
       .then(res => {
         if(res.data.msg === "success!") {
           setCurrentUserId(res.data.id);

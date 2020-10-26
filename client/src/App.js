@@ -34,7 +34,7 @@ function App() {
   // GET CURRENT USER
   useEffect(() => {
     if(currentUserId !== "") {
-      axios.get(`http://localhost:8000/users/${currentUserId}`, {withCredentials:true})
+      axios.get(`http://localhost:8000/api/users/${currentUserId}`, {withCredentials:true})
         .then(res => {
           setCurrentUser(res.data)
         })
@@ -68,7 +68,7 @@ function App() {
     setCurrentUser(null)
     setCurrentUserId("")
     navigate('/')
-    axios.get('http://localhost:8000/logout')
+    axios.get('http://localhost:8000/api/logout')
       .then(res => {
           setRecentlyViewed([])
       })
@@ -79,7 +79,7 @@ function App() {
     <div style={{background: "#ffc107", height: "100vh", overflow: "auto", mb: "0"}}>
 
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="sticky-top">
-        <Navbar.Brand><Link to="/"><span className="text-light h4"><i className="fas fa-film"></i><strong> MOVIE TALK!</strong></span></Link></Navbar.Brand>
+        <Navbar.Brand><Link to="/"><span className="text-warning h4"><i className="fas fa-film"></i><strong> MOVIE TALK!</strong></span></Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
@@ -92,8 +92,12 @@ function App() {
                 <Link to='/movies/upcoming' className="text-dark">Upcoming</Link>
                 <hr></hr>
               </div>
-              <div className="text-center pb-2">
+              <div className="text-center">
                 <Link to='/movies/top_rated' className="text-dark">Top Rated</Link>
+                <hr></hr>
+              </div>
+              <div className="text-center pb-2">
+                <Link to='/theaters' className="text-dark">Nearby Theaters</Link>
               </div>
             </NavDropdown>
           </Nav>

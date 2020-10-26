@@ -11,14 +11,14 @@ const ProfileList = (props) => {
         const temp = listState.filter(movie => movie.movieid != id)
         setListState(temp);
         if(type === "favorites") {
-            axios.put('http://localhost:8000/users/' + currentUser._id, {
+            axios.put('http://localhost:8000/api/users/' + currentUser._id, {
                 ...currentUser,
                 favorites: temp
             })
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
         } else {
-            axios.put('http://localhost:8000/users/' + currentUser._id, {
+            axios.put('http://localhost:8000/api/users/' + currentUser._id, {
                 ...currentUser,
                 watchlist: temp
             })

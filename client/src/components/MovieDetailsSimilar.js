@@ -31,7 +31,7 @@ const MovieDetailsSimilar = (props) => {
     const classes = useStyles();
 
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/movie/${movieid}/similar?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`)
+        axios.get(`https://api.themoviedb.org/3/movie/${movieid}/similar?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1&include_adult=false`)
             .then(res => {
                 setList(res.data.results)
             })
@@ -47,16 +47,14 @@ const MovieDetailsSimilar = (props) => {
                         return(
                             <GridListTile key={i}>
                                 <img src={"http://image.tmdb.org/t/p/w342/"+ movie.poster_path} alt={movie.title} />
-                                <Link to={'/movies/'+movie.id+'/overview'}>
-                                    <GridListTileBar 
-                                        className="similarTitle similarTitleBar"
-                                        title={movie.title} 
-                                        classes={{
-                                            root: classes.titleBar,
-                                            title: classes.title,
-                                        }}
-                                    />
-                                </Link>
+                                <GridListTileBar 
+                                    className="similarTitle similarTitleBar"
+                                    title={movie.title} 
+                                    classes={{
+                                        root: classes.titleBar,
+                                        title: classes.title,
+                                    }}
+                                />
                             </GridListTile>
                         )
                     })}

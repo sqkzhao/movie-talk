@@ -5,11 +5,23 @@ import GetStarted from './GetStarted';
 import styles from '../module.css/Chat.module.css';
 
 const Chat = () => {
-    const [socket] = useState(() => io(':8000'))
+    // const [socket] = useState(() => io(':8000'))
     const [name, setName] = useState("Unknown user")
     const [nameExist, setNameExist] = useState(false)
     const [message, setMessage] = useState()
     const [chatHistory, setChatHistory] = useState([])
+
+    const socket = io( "https://host/dropcodes", {
+        "path": "/websockets",
+        "transports": ["polling","websocket"],
+        "transportOptions": {
+        "polling": {
+            "extraHeaders": {
+                "authorization": "ApiKey <Key>"
+            }
+        }
+    }
+    });
 
     useEffect(() => {
         socket.on("welcome", data => {
@@ -43,7 +55,7 @@ const Chat = () => {
     }
 
     return(
-        <div className="card col-4 text-center position-fixed fixed-bottom border border-dark">
+        <div className="card col-4 text-center position-fixed fixed-bottom border border-warning">
             <nav className="row navbar navbar-dark bg-dark text-white" data-toggle="collapse" data-target="#collapseChat" aria-expanded="false" aria-controls="collapseChat">
                 <span className="font-weight-bold">Let's Chat! - Recent Movies</span>
             </nav>

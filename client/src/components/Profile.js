@@ -28,7 +28,7 @@ const Profile = (props) => {
     const DeleteAccount = (e) => {
         const deleteAccount = window.confirm("Do you want to delete your account?")
         if(deleteAccount) {
-            axios.delete('http://localhost:8000/users/' + currentUser._id)
+            axios.delete('http://localhost:8000/api/users/' + currentUser._id)
             .then(res => {
                 navigate('/');
                 setCurrentUser(null);

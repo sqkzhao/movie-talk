@@ -1,14 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import io from 'socket.io-client'
-import GetStarted from './GetStarted'
-import styles from '../module.css/Chat.module.css'
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import GetStarted from './GetStarted';
 
-const Chat = (props) => {
-    const [socket] = useState(() => io(':8000'))
+import styles from '../module.css/Chat.module.css';
+
+const Chat = () => {
+    // const [socket] = useState(() => io(':8000'))
     const [name, setName] = useState("Unknown user")
     const [nameExist, setNameExist] = useState(false)
     const [message, setMessage] = useState()
     const [chatHistory, setChatHistory] = useState([])
+
+    const socket = io( "https://host/dropcodes", {
+        "path": "/websockets",
+        "transports": ["polling","websocket"],
+        "transportOptions": {
+        "polling": {
+            "extraHeaders": {
+                "authorization": "ApiKey <Key>"
+            }
+        }
+    }
+    });
 
     useEffect(() => {
         socket.on("welcome", data => {
@@ -42,7 +55,7 @@ const Chat = (props) => {
     }
 
     return(
-        <div className="card col-4 text-center position-fixed fixed-bottom border border-dark">
+        <div className="card col-4 text-center position-fixed fixed-bottom border border-warning">
             <nav className="row navbar navbar-dark bg-dark text-white" data-toggle="collapse" data-target="#collapseChat" aria-expanded="false" aria-controls="collapseChat">
                 <span className="font-weight-bold">Let's Chat! - Recent Movies</span>
             </nav>
@@ -55,9 +68,9 @@ const Chat = (props) => {
                     {/* CHAT BOX */}
                     <div className={styles.chatBox} id="chat-history">
                         {chatHistory.map((item, i) => (
-                            (item.name == "system") ?
+                            (item.name === "system") ?
                             <div key={i} className="p-2">{item.msg}</div> : (
-                                (item.name == name) ? 
+                                (item.name === name) ? 
                                 <div className="row justify-content-end">
                                     <span key={i} className="badge badge-primary mr-3 mb-2 p-2">{item.msg}</span>
                                 </div>

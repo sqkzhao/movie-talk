@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Link, navigate } from '@reach/router'
-import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap'
-import { AppBar, Tabs, Tab } from '@material-ui/core'
-import styles from '../module.css/MovieDetails.module.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link, navigate } from '@reach/router';
+
+import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap';
+import { AppBar, Button } from '@material-ui/core';
+import styles from '../module.css/MovieDetails.module.css';
 
 const MovieDetails = (props) => {
-    const { id, currentUser, setCurrentUser, recentlyViewed, setRecentlyViewed } = props
-    const [movie, setMovie] = useState({})
-    const [genres, setGenres] = useState([])
-    const [hashtag, setHashtag] = useState([])
-    const [runtime, setRuntime] = useState('')
-    const [year, setYear] = useState(0)
-    const [show, setShow] = useState(false)
-    const [notification, setNotification] = useState(true)
+    const { id, currentUser, setCurrentUser, recentlyViewed, setRecentlyViewed } = props;
+    const [movie, setMovie] = useState({});
+    const [genres, setGenres] = useState([]);
+    const [hashtag, setHashtag] = useState([]);
+    const [runtime, setRuntime] = useState('');
+    const [year, setYear] = useState(0);
+    const [show, setShow] = useState(false);
+    const [notification, setNotification] = useState(true);
     
     useEffect(() => {
         // MOVIE INFO
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US')
+        axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`)
             .then(res => {
                 setMovie(res.data)
                 setGenres(res.data.genres)
@@ -26,12 +27,21 @@ const MovieDetails = (props) => {
                 setRuntime(`${hr}h ${min}min`)
                 setYear(res.data.release_date.slice(0, 4))
                 // add the movie to the recently viewed list
-                recentlyViewed.push(res.data)
-                setRecentlyViewed(recentlyViewed)
+                let isDup = false;
+                for(let x of recentlyViewed) {
+                    if(x.id == res.data.id) {
+                        isDup = true;
+                    }
+                }
+                if(!isDup) {
+                    recentlyViewed.push(res.data)
+                    setRecentlyViewed(recentlyViewed)
+                }
             })
             .catch(err => console.log(err))
+            
         // HASHTAG/KEYWORDS
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'/keywords?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
+        axios.get(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`)
             .then(res => {
                 setHashtag(res.data.keywords)
             })
@@ -40,22 +50,36 @@ const MovieDetails = (props) => {
 
     const AddFavorites = (e) => {
         e.preventDefault()
-        if(currentUser == null) {
+        if(currentUser === null) {
             alert("Please login to add favorites.")
             navigate('/sign_in')
         } else {
-            currentUser.favorites.push({
-                id: movie.id,
-                url: movie.poster_path
-            })
+            let fav = currentUser.favorites;
+            let isDup = false;
+            for(let x of fav) {
+                console.log(x.movieid, "...", movie.id)
+
+                if(x.movieid == movie.id) {
+                    isDup = true;
+                }
+            }
+            if(!isDup) {
+                fav.push({movieid: movie.id, url: movie.poster_path});
+                console.log(fav)
+                setNotification("Added to your favorites")
+            } else {
+                setNotification("Already in your favorites")
+            }
             // add movie to favorite list
             axios.put('http://localhost:8000/users/' + currentUser._id, {
                 ...currentUser,
-                favorites: currentUser.favorites
+                favorites: fav
             })
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res.data)
+                    setCurrentUser(res.data)
+                })
                 .catch(err => console.log(err))
-            setNotification("Added to your favorites")
             setShow(true)
         }
     }
@@ -66,18 +90,28 @@ const MovieDetails = (props) => {
             alert("Please login to add watchlist.")
             navigate('/sign_in')
         } else {
-            currentUser.watchlist.push({
-                id: movie.id,
-                url: movie.poster_path
-            })
+            const watch = currentUser.watchlist;
+            let isDup = false;
+            if(watch.length !== 0) {
+                for(let x of watch) {
+                    if(x.movieid == movie.id) {
+                        isDup = true;
+                    }
+                }
+            }
+            if(!isDup) {
+                watch.push({movieid: movie.id, url: movie.poster_path});
+                setNotification("Added to your watchlist.")
+            } else {
+                setNotification("Already in your watchlist.")
+            }
             // add movie to favorite list
             axios.put('http://localhost:8000/users/' + currentUser._id, {
                 ...currentUser,
-                watchlist: currentUser.watchlist
+                watchlist: watch
             })
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
-            setNotification("Added to your watchlist.")
             setShow(true)
         }
     }
@@ -90,27 +124,27 @@ const MovieDetails = (props) => {
         <div className="bg-warning text-white">
             <div className="col" id={styles.bgContainer}>
                 {/* BACKGROUND */}
-                <img src={"http://image.tmdb.org/t/p/w342/"+ movie.backdrop_path} id={styles.background} />
+                <img src={"http://image.tmdb.org/t/p/w342/"+ movie.backdrop_path} id={styles.background} alt={movie.title}/>
                 <div>
                     {/* MAIN SECTION */}
                     <div className="container-md mt-5" id={styles.infoContainer}>
                         <div className="row">
                             {/* POSTER */}
-                            <img src={"http://image.tmdb.org/t/p/w342/"+ movie.poster_path} className="image-fluid mx-4" id={styles.poster}/>
+                            <img src={"http://image.tmdb.org/t/p/w342/"+ movie.poster_path} className="image-fluid mx-4" id={styles.poster} alt={movie.title}/>
                             {/* MOVIE INFO */}
                             <div className="col ml-3 pr-5" id={styles.infoBox}>
                                 <h1>{movie.title} <span className="text-secondary h3">({year})</span></h1>
                                 {/* GENRES */}
                                 <p>
                                     {genres.map((genre, i) => (
-                                        <span className="badge badge-warning mr-2">{genre.name}</span>
+                                        <span key={i} className="badge badge-warning mr-2">{genre.name}</span>
                                     ))}
                                 </p>
                                 <p>{runtime} | In Theaters {movie.release_date}</p>
-                                <p className="pr-5 mr-5">
+                                <div className="pr-5 mr-5">
                                     <span className="h3 font-weight-bold text-warning">{movie.vote_average}</span><strong> /10 ({movie.vote_count} votes)</strong>
                                     <ProgressBar animated striped variant="warning" now={movie.vote_average*10} label={`Scored ${movie.vote_average} out of ${movie.vote_count} votes`}/>
-                                </p>
+                                </div>
                                 <p>
                                     <strong>Popularity </strong>{movie.popularity}
                                     <i className="fab fa-hotjar ml-1 text-warning"></i>
@@ -118,7 +152,7 @@ const MovieDetails = (props) => {
                                     <i className="fab fa-hotjar ml-1 text-warning"></i> 
                                 </p>
                                 {/* ICONS */}
-                                <div className="my-5">
+                                <div className="mt-3 mb-4">
                                     {/* FAVORITES */}
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}>
@@ -162,7 +196,7 @@ const MovieDetails = (props) => {
                                 <div>
                                     {hashtag.map((keyword, i) => {
                                         if(i < 9) {
-                                            return <button key={i} onClick={e => searchKeyword(keyword.id)} type="button" class="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
+                                            return <button key={i} onClick={e => searchKeyword(keyword.id)} type="button" className="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
                                         }
                                     })}
                                 </div>
@@ -183,13 +217,15 @@ const MovieDetails = (props) => {
             {/* MOVIE DETAILS NAVIGATION */}
             <div> 
                 <AppBar position="static">
-                    <Tabs variant="fullWidth" className="container-md">
-                        <Tab label="Overview" onClick={(e) => navigate('/movies/'+id+'/overview')} />
-                        <Tab label="Details" onClick={(e) => navigate('/movies/'+id+'/info')} />
-                        <Tab label="Videos" onClick={(e) => navigate('/movies/'+id+'/videos')} />
-                        <Tab label="Reviews" onClick={(e) => navigate('/movies/'+id+'/reviews')} />
-                        <Tab label="Nearby Theaters" onClick={(e) => navigate('/movies/'+id+'/theaters')} />
-                    </Tabs>
+                    <div className="mx-auto container-md">
+                        <div className="row">
+                            <Button onClick={(e) => navigate(`/movies/${id}/overview`)} className="py-3 text-light mx-auto col">Overview</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/info`)} className="py-3 text-light mx-auto col">Details</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/videos`)} className="py-3 text-light mx-auto col">Videos</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/reviews`)} className="py-3 text-light mx-auto col">Reviews</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/theaters`)} className="py-3 text-light mx-auto col">Nearby Theaters</Button>
+                        </div>              
+                    </div>
                 </AppBar>
             </div>
             {/* MOVIE DETAILS COMPONENTS */}

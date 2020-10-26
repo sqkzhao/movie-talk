@@ -10,7 +10,7 @@ https://movie-talk-deploy.vercel.app/ (Front-end only)
 - Setup
   - Server: Install packages and database setup `cd movie/server` and:
     -  `npm init -y`
-    -  `npm i express mongoose cors socket.io bcrypt`
+    -  `npm i express mongoose cors socket.io bcrypt jsonwebtoken`
   - Webapp: Install packages `cd movie/client` and:
     -  `npm i axios @reach/router socket.io-client`
     -  `npm i react-bootstrap bootstrap @material-ui/core`

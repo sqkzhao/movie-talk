@@ -1,19 +1,16 @@
 # MOVIE TALK 🍿🎥🍿
 
 #### Explore and discover millions of movies.
-- **API** built with Node, Express, MySQL and JWT Auth
+- **API** built with Node, Express, MangoDB, React, Socket.io and JWT Auth
 - **WebApp** built with React.js
 - Written in ES6+ using Babel + Webpack
 
 ## Screenshots 
 Click on image to view
 
-![Webapp](https://) availbale soon
+![Webapp](https://movie-talk-deploy-pf3ez68oc.vercel.app/
 
 ## Setup and Running
-- Prerequisites
-  - Node
-  - MySQL (or Postgres / Sqlite / MSSQL)
 - Setup
   - Server: Install packages and database setup `cd movie/server` and:
     -  `npm init -y`
@@ -28,10 +25,5 @@ Click on image to view
 
 ## Resources 
 The Movie Database API https://developers.themoviedb.org/3/getting-started/introduction
-
-## Author
-- Kay Zhao - [GitHub](https://github.com/sqkzhao)
-- Ryan Kim - [GitHub](https://github.com/fromryan)
-
 
 

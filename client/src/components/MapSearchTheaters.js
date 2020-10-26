@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { withScriptjs, withGoogleMap } from 'react-google-maps'
 import MapComponent from './MapComponent'
-import SearchComponent from './SearchComponent'
+import MapSearchComponent from './MapSearchComponent'
+
 import styles from '../module.css/Map.module.css'
 
 
-const SearchTheaters = (props) => {
+const MapSearchTheaters = () => {
     const [theater, setTheater] = useState('')
     const [coordinates, setCoordinates] = useState({ lat: 37.8044, lng: -122.2712 })
     const [locations, setlocations] = useState([])
@@ -27,7 +28,7 @@ const SearchTheaters = (props) => {
             </div>
 
             <div className={styles.search}>
-                <SearchComponent 
+                <MapSearchComponent 
                     setTheater={setTheater} setCoordinates={setCoordinates} 
                     locations={locations} setlocations={setlocations}
                 />
@@ -35,4 +36,4 @@ const SearchTheaters = (props) => {
         </div>
     )
 }
-export default SearchTheaters
+export default MapSearchTheaters

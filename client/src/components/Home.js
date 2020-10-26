@@ -1,51 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link } from '@reach/router';
+import HomeGenreBar from './HomeGenreBar';
+import About from './About';
+
 import Carousel from 'react-bootstrap/Carousel';
 import { GridList, GridListTile } from '@material-ui/core';
-
 import styles from '../module.css/Chat.module.css';
 
 const Home = (props) => {
-    const [upcoming, setUpcoming] = useState([])
-    const [nowPlaying, setNowPlaying] = useState([])
-    const [popular, setPopular] = useState([])
-    // const [genre, setGenre] = useState([])
-
-    useEffect(() => {
-        axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=' +`${process.env.REACT_APP_API_KEY}`+ '&language=en-US&page=1&include_adult=false')
-            .then(res => {
-                setUpcoming(res.data.results)   
-            })
-            .catch(err => console.log(err))
-
-        axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=' +`${process.env.REACT_APP_API_KEY}`+ '&language=en-US&page=1&include_adult=false')
-            .then(res => {
-                setNowPlaying(res.data.results)
-            })
-            .catch(err => console.log(err))
-
-        axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' +`${process.env.REACT_APP_API_KEY}`+ '&language=en-US&page=1&include_adult=false')
-            .then(res => {
-            setPopular(res.data.results)
-            })
-            .catch(err => console.log(err))
-
-        // axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=' +`${process.env.REACT_APP_API_KEY}`+ '&language=en-US&include_adult=false')
-        //     .then(res => {
-        //         setGenre(res.data.genres)
-        //     })
-    }, [])
+    const { upcoming, nowPlaying, popular } = props;
 
     return(
-        <div className="pb-5">
-
+        <div>
             {/* UPCOMING MOVIES */}
-            <div style={{width:'100vw', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif', padding:'0rem 0rem 5rem 0rem'}}>
+            <div style={{width:'1200px', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif', padding:'0rem 0rem 5rem 0rem'}}>
                 {/* <h1 className="mt-5">Upcoming</h1> */}
-                <Carousel style={{height: "88vh"}}>
+                <Carousel style={{height: "83vh"}}>
                     {upcoming.map((movie,i) =>(
-                        <Carousel.Item key={i} style={{height: "89vh"}}>
+                        <Carousel.Item key={i} style={{height: "87vh"}}>
                             <Link to={'/movies/'+ movie.id +'/overview'}>
                                 <img
                                 className="d-block w-100"
@@ -64,9 +36,12 @@ const Home = (props) => {
                 </Carousel>
             </div>
 
+            <HomeGenreBar />
+
             {/* NOW PLAYING      */}
-            <div style={{ width:'60%', margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
+            <div style={{ width:'60%', margin:'0 auto', padding:"0 0 40px 0" ,textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
                 <h1>Now Playing</h1>
+                <hr></hr>
                 <Carousel>
                     {nowPlaying.map((movie,i) =>(
                         <Carousel.Item key={i}>
@@ -85,9 +60,10 @@ const Home = (props) => {
                     ))}
                 </Carousel>
             </div>
-
+                        
             {/* POPULAR MOVIES */}
-            <h2 className="text-center pt-5 mt-3" style={{fontFamily:'Impact, Charcoal, sans-serif'}}>Popular Movies</h2>
+            <hr className="mt-5"></hr>
+            <h2 className="text-center pt-3 mb-5" style={{fontFamily:'Impact, Charcoal, sans-serif'}}>Popular Movies</h2>
             <div className="row justify-content-center pb-5">
                 <GridList cellHeight={280} className={styles.gridList} cols={5} >
                     {popular.map((item, i) => (
@@ -97,6 +73,7 @@ const Home = (props) => {
                     ))}
                 </GridList>
             </div>
+            <About />
         </div>
     )
 }

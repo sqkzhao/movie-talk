@@ -20,7 +20,7 @@ const SearchMovieSection = (props) => {
                 <div>
                     {category.map((movie,i) => movie.poster_path != null && (
                         <div key={i} style={{display:'inline-block'}}>
-                            <div style={{width: '300px', margin:'10px', display:'inline-block'}}>
+                            <div style={{width: '300px', margin:'10px', display:'inline-block' }}>
                                 <Link to={'/movies/'+movie.id+'/overview'}>
                                     <img
                                     className="d-block w-100"

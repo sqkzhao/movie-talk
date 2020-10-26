@@ -14,7 +14,7 @@ const MovidDetailsInfo = (props) => {
 
     useEffect(() => {
         // MOVIE INFO
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
+        axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`)
             .then(res => {
                 setMovie(res.data)
                 setCast(res.data.credits.cast)
@@ -32,7 +32,7 @@ const MovidDetailsInfo = (props) => {
             <h2>Details</h2>
             <div className="px-5 mt-3">
                 <p><strong>Official site: </strong>
-                    <a href={movie.homepage} target="_blank">{movie.homepage}</a>
+                    <a href={movie.homepage} target="_blank" rel="noopener noreferrer">{movie.homepage}</a>
                 </p>
                 <p>
                     <strong>Country: </strong>
@@ -61,15 +61,14 @@ const MovidDetailsInfo = (props) => {
                         if(i === 0) {
                             return (
                                 <span key={i}>
-                                    {company.logo_path!==null && <img src={"http://image.tmdb.org/t/p/w92/"+ company.logo_path} className={styles.companyLogo}/>}
-                                    {company.name}
+                                    {company.logo_path!==null ? <img src={"http://image.tmdb.org/t/p/w92/"+ company.logo_path} className={styles.companyLogo} alt={company.name} /> : <span>{company.name}</span>}
                                 </span>
                             )
                         } else {
                             return (
                                 <span key={i}> 
-                                    , {company.logo_path!==null && <img src={"http://image.tmdb.org/t/p/w92/"+ company.logo_path} className={styles.companyLogo}/>}
-                                    {company.name}
+                                    {/* , {company.logo_path!==null && <img src={"http://image.tmdb.org/t/p/w92/"+ company.logo_path} className={styles.companyLogo}/>} */}
+                                    , {company.name}
                                 </span>
                             )
                         }
@@ -80,8 +79,8 @@ const MovidDetailsInfo = (props) => {
             </div>
             {/* CAST */}
             <p data-toggle="collapse" data-target="#collapseCast" aria-expanded="true" aria-controls="collapseCast"><span className="h2 mr-2">Cast</span>click here to expand/collapse</p>
-            <div class="collapse show" id="collapseCast">
-                <div class="card card-body mb-3">
+            <div className="collapse show" id="collapseCast">
+                <div className="card card-body mb-3">
                     <table>
                         <tbody>
                             {cast.map((c, i) => {
@@ -99,13 +98,13 @@ const MovidDetailsInfo = (props) => {
             </div>
             {/* CREW */}
             <p data-toggle="collapse" data-target="#collapseCrew" aria-expanded="false" aria-controls="collapseCrew"><span className="h2 mr-2">Crew</span>click here to expand/collapse</p>
-            <div class="collapse" id="collapseCrew">
-                <div class="card card-body">
+            <div className="collapse" id="collapseCrew">
+                <div className="card card-body">
                     <table>
                         <tbody>
                             {crew.map((c, i) => {
                                 return (
-                                    <tr>
+                                    <tr key={i}>
                                         <td className="pr-3"><strong>{c.name}</strong></td>
                                         <td className="pr-3">{c.job}</td>
                                         <td>{c.department}</td>

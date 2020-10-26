@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import GetStarted from './GetStarted';
+
 import styles from '../module.css/Chat.module.css';
 
-const Chat = (props) => {
+const Chat = () => {
     const [socket] = useState(() => io(':8000'))
     const [name, setName] = useState("Unknown user")
     const [nameExist, setNameExist] = useState(false)
@@ -55,9 +56,9 @@ const Chat = (props) => {
                     {/* CHAT BOX */}
                     <div className={styles.chatBox} id="chat-history">
                         {chatHistory.map((item, i) => (
-                            (item.name == "system") ?
+                            (item.name === "system") ?
                             <div key={i} className="p-2">{item.msg}</div> : (
-                                (item.name == name) ? 
+                                (item.name === name) ? 
                                 <div className="row justify-content-end">
                                     <span key={i} className="badge badge-primary mr-3 mb-2 p-2">{item.msg}</span>
                                 </div>

@@ -1,9 +1,9 @@
-// SEARCH MAP
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+
 import styles from '../module.css/Map.module.css'
 
-const SearchComponent = (props) => {
+const MapSearchComponent = (props) => {
     const { setTheater, setCoordinates, locations, setlocations } = props
     const [search, setSearch] = useState('')
 
@@ -42,14 +42,13 @@ const SearchComponent = (props) => {
                                     padding: "2px",
                                     color: suggestion.active ? "#fff" : "#292b2c" 
                                 }
-                                if(suggestion.terms.length > 4) {
-                                    return(
-                                        // get suggestion props & attach style => render suggestion
-                                        <div {...getSuggestionItemProps(suggestion, {style})}>  
-                                            {suggestion.description}
-                                        </div>
-                                    )
-                                }
+                                return(
+                                    (suggestion.terms.length > 4) &&
+                                    // get suggestion props & attach style => render suggestion
+                                    <div {...getSuggestionItemProps(suggestion, {style})}>  
+                                        {suggestion.description}
+                                    </div>
+                                )
                             })}
                         </div>
                     </div>
@@ -58,4 +57,4 @@ const SearchComponent = (props) => {
         </div>
     )
 }
-export default SearchComponent
+export default MapSearchComponent;

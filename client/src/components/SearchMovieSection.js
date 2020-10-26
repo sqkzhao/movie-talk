@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from '@reach/router'
-import Collapse from 'react-bootstrap/Collapse'
 import CollapseButton from './CollapseButton'
 
+import Collapse from 'react-bootstrap/Collapse'
+
 const SearchMovieSection = (props) => {
-    const { type, category, num } = props
+    const { type, category, num, id } = props
     const [open, setOpen] = useState(false);
 
     const stringReducer = (string) => {
@@ -19,7 +20,7 @@ const SearchMovieSection = (props) => {
     return(
         <section className="my-5">
             <div style={{margin:'0 auto', textAlign:'center', fontFamily:'Impact, Charcoal, sans-serif'}}>
-                <h1>{type}</h1>
+                <Link to={'/movies/'+id} className="text-dark"><h1 className="mb-4">{type}</h1></Link>
                 <div id="example-collapse-text">
                     {category.slice(0,num).map((movie,i) => movie.poster_path != null && (
                         

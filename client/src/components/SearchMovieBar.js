@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Row, Col, Form } from 'react-bootstrap';
+import React, { useState } from 'react'
 import { navigate } from '@reach/router';
+
+import { Row, Col, Form } from 'react-bootstrap';
+
 
 const SearchMovieBar = (props) => {
     const [search, setSearch] = useState("")
@@ -10,8 +12,8 @@ const SearchMovieBar = (props) => {
     }
 
     const searchMovie = (e) => {
-        if(e.charCode==13){
-            navigate('/searchmovies/' + search)
+        if(e.charCode===13){
+            navigate(`/searchmovies/${search}`)
             setSearch("")
         } 
     }
@@ -19,7 +21,7 @@ const SearchMovieBar = (props) => {
     return(
         <Row onKeyPress={searchMovie}>
             <Col>
-                <Form.Control type="text" onChange={changeHandler} value={search} placeholder="Search movies.." rounded-0 />
+                <Form.Control type="text" onChange={changeHandler} value={search} placeholder="Search movies.." />
             </Col>
         </Row>
     )

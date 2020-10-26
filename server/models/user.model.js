@@ -26,10 +26,10 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Password must be provided"],
         minlength: [7, "Password must be at least 7 characters"]
     },
-    favorites: [{ id: String, url: String }],
-    watchlist: [{ id: String, url: String }],
+    favorites: [{ id: String, movieid: String, url: String }],
+    watchlist: [{ id: String, movieid: String, url: String }],
     friendlist: [{ id: String, url: String}],
-    reviews: [{ id: String, review: String }],
+    reviews: [{ id: String, movieid: String, review: String }],
 }, {timestamps:true})
 
 

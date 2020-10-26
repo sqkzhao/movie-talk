@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, navigate } from '@reach/router'
-import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap';
-import { AppBar, Tabs, Tab } from '@material-ui/core';
+import { Link, navigate } from '@reach/router';
+import MovieDetailsSimilar from './MovieDetailsSimilar';
 
+import { ProgressBar, Tooltip, OverlayTrigger, Toast } from 'react-bootstrap';
+import { AppBar, Button } from '@material-ui/core';
 import styles from '../module.css/MovieDetails.module.css';
 
 const MovieDetails = (props) => {
@@ -29,7 +30,7 @@ const MovieDetails = (props) => {
                 // add the movie to the recently viewed list
                 let isDup = false;
                 for(let x of recentlyViewed) {
-                    if(x.id === res.data.id) {
+                    if(x.id == res.data.id) {
                         isDup = true;
                     }
                 }
@@ -39,6 +40,7 @@ const MovieDetails = (props) => {
                 }
             })
             .catch(err => console.log(err))
+            
         // HASHTAG/KEYWORDS
         axios.get('https://api.themoviedb.org/3/movie/'+id+'/keywords?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
             .then(res => {
@@ -53,22 +55,32 @@ const MovieDetails = (props) => {
             alert("Please login to add favorites.")
             navigate('/sign_in')
         } else {
-            const fav = currentUser.favorites;
+            let fav = currentUser.favorites;
             let isDup = false;
             for(let x of fav) {
-                if(x.movieid === movie.id) {
+                console.log(x.movieid, "...", movie.id)
+
+                if(x.movieid == movie.id) {
                     isDup = true;
                 }
             }
-            if(!isDup) fav.push({movieid: movie.id, url: movie.poster_path});
+            if(!isDup) {
+                fav.push({movieid: movie.id, url: movie.poster_path});
+                console.log(fav)
+                setNotification("Added to your favorites")
+            } else {
+                setNotification("Already in your favorites")
+            }
             // add movie to favorite list
             axios.put('http://localhost:8000/users/' + currentUser._id, {
                 ...currentUser,
                 favorites: fav
             })
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res.data)
+                    setCurrentUser(res.data)
+                })
                 .catch(err => console.log(err))
-            setNotification("Added to your favorites")
             setShow(true)
         }
     }
@@ -81,12 +93,19 @@ const MovieDetails = (props) => {
         } else {
             const watch = currentUser.watchlist;
             let isDup = false;
-            for(let x of watch) {
-                if(x.movieid === movie.id) {
-                    isDup = true;
+            if(watch.length !== 0) {
+                for(let x of watch) {
+                    if(x.movieid == movie.id) {
+                        isDup = true;
+                    }
                 }
             }
-            if(!isDup) watch.push({movieid: movie.id, url: movie.poster_path});
+            if(!isDup) {
+                watch.push({movieid: movie.id, url: movie.poster_path});
+                setNotification("Added to your watchlist.")
+            } else {
+                setNotification("Already in your watchlist.")
+            }
             // add movie to favorite list
             axios.put('http://localhost:8000/users/' + currentUser._id, {
                 ...currentUser,
@@ -94,7 +113,6 @@ const MovieDetails = (props) => {
             })
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
-            setNotification("Added to your watchlist.")
             setShow(true)
         }
     }
@@ -120,14 +138,14 @@ const MovieDetails = (props) => {
                                 {/* GENRES */}
                                 <p>
                                     {genres.map((genre, i) => (
-                                        <span className="badge badge-warning mr-2">{genre.name}</span>
+                                        <span key={i} className="badge badge-warning mr-2">{genre.name}</span>
                                     ))}
                                 </p>
                                 <p>{runtime} | In Theaters {movie.release_date}</p>
-                                <p className="pr-5 mr-5">
+                                <div className="pr-5 mr-5">
                                     <span className="h3 font-weight-bold text-warning">{movie.vote_average}</span><strong> /10 ({movie.vote_count} votes)</strong>
                                     <ProgressBar animated striped variant="warning" now={movie.vote_average*10} label={`Scored ${movie.vote_average} out of ${movie.vote_count} votes`}/>
-                                </p>
+                                </div>
                                 <p>
                                     <strong>Popularity </strong>{movie.popularity}
                                     <i className="fab fa-hotjar ml-1 text-warning"></i>
@@ -135,7 +153,7 @@ const MovieDetails = (props) => {
                                     <i className="fab fa-hotjar ml-1 text-warning"></i> 
                                 </p>
                                 {/* ICONS */}
-                                <div className="my-5">
+                                <div className="mt-3 mb-4">
                                     {/* FAVORITES */}
                                     <OverlayTrigger placement="bottom" delay={{ show: 200, hide: 400 }} overlay={
                                         <Tooltip id={`tooltip-favorites`}>
@@ -179,7 +197,7 @@ const MovieDetails = (props) => {
                                 <div>
                                     {hashtag.map((keyword, i) => {
                                         if(i < 9) {
-                                            return <button key={i} onClick={e => searchKeyword(keyword.id)} type="button" class="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
+                                            return <button key={i} onClick={e => searchKeyword(keyword.id)} type="button" className="btn btn-sm btn-outline-info mr-2 mb-2">#{keyword.name}</button>
                                         }
                                     })}
                                 </div>
@@ -200,18 +218,21 @@ const MovieDetails = (props) => {
             {/* MOVIE DETAILS NAVIGATION */}
             <div> 
                 <AppBar position="static">
-                    <Tabs variant="fullWidth" className="container-md">
-                        <Tab label="Overview" onClick={(e) => navigate('/movies/'+id+'/overview')} />
-                        <Tab label="Details" onClick={(e) => navigate('/movies/'+id+'/info')} />
-                        <Tab label="Videos" onClick={(e) => navigate('/movies/'+id+'/videos')} />
-                        <Tab label="Reviews" onClick={(e) => navigate('/movies/'+id+'/reviews')} />
-                        <Tab label="Nearby Theaters" onClick={(e) => navigate('/movies/'+id+'/theaters')} />
-                    </Tabs>
+                    <div className="mx-auto container-md">
+                        <div className="row">
+                            <Button onClick={(e) => navigate(`/movies/${id}/overview`)} className="py-3 text-light mx-auto col">Overview</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/info`)} className="py-3 text-light mx-auto col">Details</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/videos`)} className="py-3 text-light mx-auto col">Videos</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/reviews`)} className="py-3 text-light mx-auto col">Reviews</Button>
+                            <Button onClick={(e) => navigate(`/movies/${id}/theaters`)} className="py-3 text-light mx-auto col">Nearby Theaters</Button>
+                        </div>              
+                    </div>
                 </AppBar>
             </div>
             {/* MOVIE DETAILS COMPONENTS */}
             <div className="container-md bg-white text-dark">
                 {props.children}
+                <MovieDetailsSimilar movieid={id} />
             </div>
         </div>
     )

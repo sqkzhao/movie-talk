@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, navigate } from '@reach/router'
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import { Avatar, Button, CssBaseline, TextField, Box, Typography, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 
 function Copyright() {
   return (

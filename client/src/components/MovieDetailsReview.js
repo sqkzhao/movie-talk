@@ -4,20 +4,21 @@ import axios from 'axios'
 import PageNavigation from './PageNavigation';
 
 const MovieDetailsReview = (props) => {
-    const { id } = props
+    const { id, currentUser } = props
+    const [post, setPost] = useState("")
     const [reviews, setReviews] = useState([])
     const [readMoreLess, setReadMoreLess] = useState("Read More")   // collapse
     const [pages, setPages] = useState(0);
     const [goToPage, setGoToPage] = useState(1);
 
     useEffect(() => {
-        axios.get("https://api.themoviedb.org/3/movie/" +id+ "/reviews?api_key=" +`${process.env.REACT_APP_API_KEY}`+ "&language=en-US&page=" + goToPage)
+        axios.get(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${goToPage}`)
             .then(res => {
                 setReviews(res.data.results)
                 setPages(res.data.total_pages);
             })
             .catch(err => console.log(err))
-    }, [goToPage])
+    }, [goToPage, id])
 
     const moreLessHandler = (e) => {
         if(readMoreLess === "Read More") {
@@ -27,13 +28,27 @@ const MovieDetailsReview = (props) => {
         }
     }
 
+    const submitReview = (e) => {
+        e.preventDefault()
+        const postObj = {
+            movieid: id,
+            review: post
+        }
+        const tempReview = currentUser.reviews.push(postObj);
+        axios.put(`http://localhost:8000/users/${currentUser._id}`, {
+            ...currentUser, 
+            reviews: tempReview
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
     return (
         <div className="container-sm px-5 pt-3 pb-5">
             <h2 className="mb-3">Reviews</h2>
 
-            <form className="form-group m-3">
-                <textarea class="form-control mb-2" rows="4">
-
+            <form className="form-group m-3" onSubmit={submitReview} >
+                <textarea className="form-control mb-2" rows="4" onChange={(e) => setPost(e.target.value)}>
                 </textarea>
                 <input type="submit" value="Submit Review" className="btn btn-sm btn-warning col mb-5" /> 
             </form>

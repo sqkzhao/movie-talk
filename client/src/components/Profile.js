@@ -9,7 +9,7 @@ const Profile = (props) => {
     const { currentUser, setCurrentUser, setCurrentUserId, recentlyViewed } = props;
     const [fav, setFav] = useState([]);
     const [watch, setWatch] = useState([]);
-    const [reviews, setReviews] = useState([]);
+    const [reviews] = useState([]);
 
     useEffect(() => {
         if(currentUser === null) {
@@ -48,11 +48,12 @@ const Profile = (props) => {
                 <Col>
                     <h3>Recently Viewed</h3>
                     <div className="mb-3">
-                        {recentlyViewed.length == 0 && <p>No recently viewed movie.</p>}
+                        {recentlyViewed.length === 0 && <p>No recently viewed movie.</p>}
                         {recentlyViewed.map((item, i) => {
-                            if(i <= 12) {
-                                return <img key={i} onClick={ClickPoster} src={"http://image.tmdb.org/t/p/w92/"+ item.poster_path} id={item.id} className="mr-3 mb-3" />
-                            }
+                            return (
+                            (i <= 12) && 
+                                <img key={i} alt={item.title} onClick={ClickPoster} src={"http://image.tmdb.org/t/p/w92/"+ item.poster_path} id={item.id} className="mr-3 mb-3" />
+                            )
 }                       )}
                     </div>
                     <h3>My Favorites</h3>
@@ -63,7 +64,7 @@ const Profile = (props) => {
 
                     <h3>My Reviews</h3>
                     <div className="mb-5">
-                        {reviews.length == 0 && <Link to='/searchmovies'>Write a reivew.</Link>}
+                        {reviews.length === 0 && <Link to='/searchmovies'>Write a reivew.</Link>}
                     </div>
                 </Col>
                 <Col sm={4}>

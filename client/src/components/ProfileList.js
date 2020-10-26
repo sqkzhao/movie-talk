@@ -7,20 +7,15 @@ import styles from '../module.css/Profile.module.css';
 const ProfileList = (props) => {
     const { listState, setListState, currentUser, type } = props;
 
-    const ClickPoster = (e) => {
-        navigate('/movies/' + e.target.id + '/overview')
-    }
-
-    const RemoveFavorite = (e, movieId) => {
-        const temp = listState.filter(movie => movie.movieid !== movieId)
+    const RemoveFavorite = (e, id) => {
+        const temp = listState.filter(movie => movie.movieid != id)
         setListState(temp);
         if(type === "favorites") {
             axios.put('http://localhost:8000/users/' + currentUser._id, {
                 ...currentUser,
                 favorites: temp
             })
-                .then(res => {
-                })
+                .then(res => console.log(res))
                 .catch(err => console.log(err))
         } else {
             axios.put('http://localhost:8000/users/' + currentUser._id, {
@@ -37,14 +32,21 @@ const ProfileList = (props) => {
             {listState.length <= 0 && <p>You haven't added any movies in your {type}.</p>}
             {listState.length > 0 && 
                 listState.map((item, i) => {
-                    if(i <= 12) {
-                        return (
-                            <div style={{position: 'relative', display: 'inline-block'}}>
-                                <img key={i} onClick={ClickPoster} src={"http://image.tmdb.org/t/p/w92/"+ item.url} id={item.id} className="mr-3 mb-3" />
-                                <i className="fas fa-times" onClick={e => RemoveFavorite(e, item.movieid)} id={styles.closeIcon}></i>
-                            </div>
-                        )
-                    }
+                    return (
+                    (i <= 12) &&
+                        <div style={{position: 'relative', display: 'inline-block'}} key={i}>
+                            <img key={i} 
+                                src={"http://image.tmdb.org/t/p/w92/"+ item.url} 
+                                onClick={(e) => navigate(`/movies/${item.movieid}/overview`)}
+                                id={item.movieid} 
+                                className="mr-3 mb-3"
+                                alt={item.title}
+                            />
+                            <i className="fas fa-times" 
+                                onClick={(e) => RemoveFavorite(e, item.movieid) }id={styles.closeIcon}>
+                            </i>
+                        </div>
+                    )
                 })
             }
         </div>

@@ -14,7 +14,7 @@ const MovieDetailsOverview = (props) => {
 
     useEffect(() => {
         // MOVIE INFO
-        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US&append_to_response=credits')
+        axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`)
             .then(res => {
                 setMovie(res.data)
                 setCast(res.data.credits.cast)
@@ -22,7 +22,7 @@ const MovieDetailsOverview = (props) => {
             })
             .catch(err => console.log(err))
         // MOVIE TRAILERS
-        axios.get('https://api.themoviedb.org/3/movie/' + id + '/videos?api_key='+`${process.env.REACT_APP_API_KEY}`+'&language=en-US')
+        axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`)
             .then(res => {
                 setTrailers(res.data.results)
             })
@@ -38,7 +38,7 @@ const MovieDetailsOverview = (props) => {
     }
 
     return (
-        <div className="container-sm px-5 pt-3 pb-5">
+        <div className="container-sm px-5 pt-3">
 
             {/* OVERVIEW */}
             <h3>Overview</h3>
@@ -51,25 +51,24 @@ const MovieDetailsOverview = (props) => {
             <div className="row mt-3 px-5 pb-4 text-center">
                 {director ?
                 <div className={styles.castBox}>
-                    <img src={"http://image.tmdb.org/t/p/w185/"+ director.profile_path} className={styles.cast}/><br/>
+                    <img src={`http://image.tmdb.org/t/p/w185/${director.profile_path}`} className={styles.cast} alt={director.name}/><br/>
                     <span className={styles.castName}>{director.name}</span><br/>
                     <strong className={styles.castName}>Director</strong>
                 </div> : null}
                 {cast.map((actor, i) => {
-                    if(i < 5) {
-                        return (
-                            <div key={i} className={styles.castBox}>
-                                <img src={"http://image.tmdb.org/t/p/w185/"+ actor.profile_path} className={styles.cast}/><br/>
-                                <span className={styles.castName}>{actor.name}</span><br/>
-                                <strong className={styles.castName}>{actor.character}</strong>
-                            </div>
-                        )
-                    }
+                    return (
+                        (i < 5) &&
+                        <div key={i} className={styles.castBox}>
+                            <img src={`http://image.tmdb.org/t/p/w185/${actor.profile_path}`} className={styles.cast} alt={actor.name}/><br/>
+                            <span className={styles.castName}>{actor.name}</span><br/>
+                            <strong className={styles.castName}>{actor.character}</strong>
+                        </div>
+                    )
                 })}
             </div>
 
             {/* TRAILER */}
-            <div className="row mt-5">
+            <div className="row my-5">
                 <h3 className="col-11">The Latest Trailer</h3>
                 <div className="text-right float-right col-1">
                     <OverlayTrigger placement="right" delay={{ show: 200, hide: 500 }} overlay={renderTooltip}>
@@ -77,14 +76,17 @@ const MovieDetailsOverview = (props) => {
                     </OverlayTrigger>
                 </div>
             </div>
-            <div className="my-3 px-5 pb-3 text-center">
+            <div className="row justify-content-center my-3 pb-3">
+                <div className="col text-center videoContainer">
                 {trailers.map((trailer, i) => {
-                    if(i == 0) {
-                        return <iframe key={i} width="680" height="405" src={"https://www.youtube.com/embed/"+trailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                    }
+                    return(
+                        (i === 0) &&
+                        <iframe key={i} className="iframeResponsive" width="616" height="347" src={"https://www.youtube.com/embed/"+trailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={trailer.key}></iframe>
+                    )
                 })} 
+                </div>
             </div>
-            
+
         </div>
     )
 }

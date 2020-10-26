@@ -1,14 +1,10 @@
-# 🍿🎥🍿 MOVIE TALK 🍿🎥🍿
+# MOVIE TALK 🍿🎥🍿
+https://movie-talk-deploy.vercel.app/ (Front-end only)
 
 #### Explore and discover millions of movies.
-- **API** built with Node, Express, MongoDB and JWT Auth
+- **API** built with Node, Express, MangoDB, React, Socket.io and JWT Auth
 - **WebApp** built with React.js
 - Written in ES6+ using Babel + Webpack
-
-## Screenshots 
-Click on image to view
-
-![Webapp](https://) availbale soon
 
 ## Setup and Running
 - Setup
@@ -25,11 +21,5 @@ Click on image to view
 
 ## Resources 
 The Movie Database API https://developers.themoviedb.org/3/getting-started/introduction
-The Google Maps Javascript
-
-## Author
-- Kay Zhao - [GitHub](https://github.com/sqkzhao)
-- Ryan Kim - [GitHub](https://github.com/fromryan)
-
 
 

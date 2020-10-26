@@ -8,7 +8,7 @@
 ## Screenshots 
 Click on image to view
 
-![Webapp](https://movie-talk-deploy-pf3ez68oc.vercel.app/
+![Webapp](https://movie-talk-deploy-pf3ez68oc.vercel.app)
 
 ## Setup and Running
 - Setup

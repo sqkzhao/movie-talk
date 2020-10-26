@@ -1,14 +1,10 @@
 # MOVIE TALK 🍿🎥🍿
+https://movie-talk-deploy.vercel.app/ (Front-end only)
 
 #### Explore and discover millions of movies.
 - **API** built with Node, Express, MangoDB, React, Socket.io and JWT Auth
 - **WebApp** built with React.js
 - Written in ES6+ using Babel + Webpack
-
-## Screenshots 
-Click on image to view
-
-![Webapp](https://movie-talk-deploy-pf3ez68oc.vercel.app)
 
 ## Setup and Running
 - Setup
